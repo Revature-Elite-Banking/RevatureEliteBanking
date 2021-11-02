@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 @Entity //Mapping the Class as a DB entity
 @Table(name="user")
 public class User {
