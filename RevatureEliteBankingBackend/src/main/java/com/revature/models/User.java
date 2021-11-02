@@ -189,6 +189,7 @@ public class User {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+	
 
 	/*
 	 * Hash code and equals
