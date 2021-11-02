@@ -21,7 +21,8 @@ public class RevatureEliteBankingBackendApplication {
 	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+		
+		//This will be used to filter out any endpoints in our controller where we do not want to verify JWT
 //		@Override
 //		protected void configure(HttpSecurity http) throws Exception {
 //			http.csrf().disable()

@@ -27,6 +27,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	private final String PREFIX = "Bearer ";
 	private final String SECRET = "mySecretKey";
 	
+	//This is filtering any requests to verify if the JWT is correct and will return a forbidden response if it fails.
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 		try {
@@ -48,12 +49,15 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		}
 	}
 	
+	//This method is used to validate the token
 	private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
 		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
 
+	//This method is setting up the context
 	private void setUpSpringAuthentication(Claims claims) {
+		@SuppressWarnings("unchecked")
 		List<String> authorities = (List) claims.get("authorities");
 		
 		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
@@ -61,6 +65,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 
+	//This method checks if the JWT is included
 	private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse response) {
 		String authenticationHeader = request.getHeader(HEADER);
 		if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))

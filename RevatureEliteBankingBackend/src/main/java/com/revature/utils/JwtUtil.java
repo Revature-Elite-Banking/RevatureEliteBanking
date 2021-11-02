@@ -12,6 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtil {
 
+	//This class builds the JWT.  This is to be used with the login controller
 	public static String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
