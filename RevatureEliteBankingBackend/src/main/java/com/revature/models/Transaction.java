@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 
 @Entity // map class to a database entity
@@ -22,13 +23,13 @@ public class Transaction {
 	private double amount;
 	private TransactionType type;
 	private Date date;
-	private String status;
+	private TransactionStatus status;
 	private String description;
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Transaction(int id, double amount, TransactionType type, Date date, String status, String description) {
+	public Transaction(int id, double amount, TransactionType type, Date date, TransactionStatus status, String description) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -37,7 +38,7 @@ public class Transaction {
 		this.status = status;
 		this.description = description;
 	}
-	public Transaction(double amount, TransactionType type, Date date, String status, String description) {
+	public Transaction(double amount, TransactionType type, Date date, TransactionStatus status, String description) {
 		super();
 		this.amount = amount;
 		this.type = type;
@@ -120,10 +121,10 @@ public class Transaction {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public String getStatus() {
+	public TransactionStatus getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(TransactionStatus status) {
 		this.status = status;
 	}
 	public String getDescription() {
