@@ -9,6 +9,7 @@ import { AccountComponent } from './account/account.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

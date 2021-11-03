@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@schematics/angular": "^9.1.0",
+    "bootstrap": "^4.5.3",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^7.1.0",
     "rxjs": "~6.6.0",
