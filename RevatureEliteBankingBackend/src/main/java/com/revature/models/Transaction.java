@@ -10,9 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Repository;
+
 import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 
+@Repository
 @Entity // map class to a database entity
 @Table(name="transactions") // name the table 'transactions' default would be Transaction
 public class Transaction {
