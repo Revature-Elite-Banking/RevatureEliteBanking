@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.revature.enums.TransactionStatus;
@@ -25,11 +27,19 @@ public class Transaction {
 	private Date date;
 	private TransactionStatus status;
 	private String description;
+	
+	@ManyToOne
+    @JoinColumn(name="account_id", nullable=false)
+	private Account account;
+	
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Transaction(int id, double amount, TransactionType type, Date date, TransactionStatus status, String description) {
+	
+	
+	public Transaction(int id, double amount, TransactionType type, Date date, TransactionStatus status,
+			String description, Account account) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -37,24 +47,27 @@ public class Transaction {
 		this.date = date;
 		this.status = status;
 		this.description = description;
+		this.account = account;
 	}
-	public Transaction(double amount, TransactionType type, Date date, TransactionStatus status, String description) {
+
+
+	public Transaction(double amount, TransactionType type, Date date, TransactionStatus status, String description,
+			Account account) {
 		super();
 		this.amount = amount;
 		this.type = type;
 		this.date = date;
 		this.status = status;
 		this.description = description;
+		this.account = account;
 	}
-	@Override
-	public String toString() {
-		return "Transaction [id=" + id + ", amount=" + amount + ", type=" + type + ", date=" + date + ", status="
-				+ status + ", description=" + description + "]";
-	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -65,6 +78,8 @@ public class Transaction {
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,6 +89,11 @@ public class Transaction {
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
+		if (account == null) {
+			if (other.account != null)
+				return false;
+		} else if (!account.equals(other.account))
+			return false;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
 		if (date == null) {
@@ -88,51 +108,90 @@ public class Transaction {
 			return false;
 		if (id != other.id)
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
 		if (type != other.type)
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", amount=" + amount + ", type=" + type + ", date=" + date + ", status="
+				+ status + ", description=" + description + ", account=" + account + "]";
+	}
+
+
 	public int getId() {
 		return id;
 	}
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 	public double getAmount() {
 		return amount;
 	}
+
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+
 	public TransactionType getType() {
 		return type;
 	}
+
+
 	public void setType(TransactionType type) {
 		this.type = type;
 	}
+
+
 	public Date getDate() {
 		return date;
 	}
+
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
 	public TransactionStatus getStatus() {
 		return status;
 	}
+
+
 	public void setStatus(TransactionStatus status) {
 		this.status = status;
 	}
+
+
 	public String getDescription() {
 		return description;
 	}
+
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+
+	public Account getAccount() {
+		return account;
+	}
+
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+
 	
 }
