@@ -1,10 +1,15 @@
 package com.revature.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +46,9 @@ public class User {
 	
 	@Column(name = "zip_code")
 	private String zipCode;
+	
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<Account> accounts;
 
 	
 	
@@ -55,11 +63,9 @@ public class User {
 	}
 
 
-	/*
-	 * Constructor with all the arguments
-	 */
+
 	public User(int id, String username, String password, String firstName, String lastName, String email,
-			String address, String city, String state, String zipCode) {
+			String address, String city, String state, String zipCode, List<Account> accounts) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -71,14 +77,13 @@ public class User {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.accounts = accounts;
 	}
 
-	/*
-	 * Constructor with all arguments except id
-	 */
+
 
 	public User(String username, String password, String firstName, String lastName, String email, String address,
-			String city, String state, String zipCode) {
+			String city, String state, String zipCode, List<Account> accounts) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -89,122 +94,25 @@ public class User {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
-	}
-	
-	
-	
-	/*
-	 * Getters and Setters Methods goes here
-	 */
-	public int getId() {
-		return id;
+		this.accounts = accounts;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", address=" + address + ", city=" + city + ", state="
+				+ state + ", zipCode=" + zipCode + ", accounts=" + accounts.size() + "]";
 	}
 
 
-	public String getUsername() {
-		return username;
-	}
 
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
-		this.password = passwordEncoder.encode(password).toString();
-	}
-
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-
-	public String getLastName() {
-		return lastName;
-	}
-
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-	public String getCity() {
-		return city;
-	}
-
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-
-	public String getState() {
-		return state;
-	}
-
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-	
-
-	/*
-	 * Hash code and equals
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((accounts == null) ? 0 : accounts.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -219,6 +127,7 @@ public class User {
 	}
 
 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -228,6 +137,11 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (accounts == null) {
+			if (other.accounts != null)
+				return false;
+		} else if (!accounts.equals(other.accounts))
+			return false;
 		if (address == null) {
 			if (other.address != null)
 				return false;
@@ -279,21 +193,139 @@ public class User {
 	}
 
 
-	/*
-	 * Generating/Converting the objects to String 
-	 */
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", address=" + address + ", city=" + city + ", state="
-				+ state + ", zipCode=" + zipCode + "]";
+
+	public int getId() {
+		return id;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+		this.password = passwordEncoder.encode(password).toString();
+	}
+
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+
+	public String getState() {
+		return state;
+	}
+
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
 	
 	
 }
