@@ -9,6 +9,9 @@ import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 @Entity //Mapping the Class as a DB entity
 @Table(name="user")
 public class User {
