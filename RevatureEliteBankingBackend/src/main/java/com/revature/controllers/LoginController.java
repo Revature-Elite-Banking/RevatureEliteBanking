@@ -1,44 +1,64 @@
 package com.revature.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.models.LoginDTO;
-import com.revature.services.LoginService;
+import com.revature.models.AuthRequest;
 import com.revature.utils.JwtUtil;
 
 @RestController
-@RequestMapping("/login")
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@RequestMapping(value="/login")
+@CrossOrigin
 public class LoginController {
 	
-	private LoginService lService;
+	@Autowired
+	private JwtUtil jwtUtil;
 	
 	@Autowired
-	public LoginController(LoginService ls) {
-		super();
-		this.lService = ls;
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	
+	@GetMapping
+	public ResponseEntity success() {
+		return ResponseEntity.ok("successfully done");
 	}
 	
-	@PostMapping
-	public ResponseEntity<LoginDTO> checkCredentials(@RequestBody LoginDTO ldto){
-		
-		if(lService.checkCredentials(ldto.getUsername(), ldto.getPassword())) {
-			String token = JwtUtil.getJWTToken(ldto.getUsername());
-			ldto.setToken(token);
-			
-			//Send JWT back to the client
-			return ResponseEntity.ok().body(ldto);
+	@PostMapping(value = "/validate")
+	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authrequest) throws Exception {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authrequest.getUsername(),authrequest.getPassword() )
+			);
+		} catch (BadCredentialsException e) {
+
+			return ResponseEntity
+		            .status(HttpStatus.FORBIDDEN)
+		            .body("Error Message");
 		}
 		
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//		final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+		
+		String jwt =  jwtUtil.generateToken(authrequest.getUsername());
+		return ResponseEntity.ok(jwt);
+//		return (ResponseEntity) ResponseEntity.ok().header("jwt", "100");
 		
 	}
-
 }

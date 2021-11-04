@@ -1,76 +1,58 @@
 package com.revature.security;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.revature.utils.JwtUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.micrometer.core.instrument.config.validate.Validated.Secret;
-
+@Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
-	private final String HEADER = "Authorization";
-	private final String PREFIX = "Bearer ";
-	private final String SECRET = "mySecretKey";
-	
-	//This is filtering any requests to verify if the JWT is correct and will return a forbidden response if it fails.
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-		try {
-			if (checkJWTToken(request, response)) {
-				Claims claims = validateToken(request);
-				if (claims.get("authorities") != null) {
-					setUpSpringAuthentication(claims);
-				} else {
-					SecurityContextHolder.clearContext();
-				}
-			} else {
-				SecurityContextHolder.clearContext();
-			}
-			chain.doFilter(request, response);
-		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
-			response.setStatus(HttpServletResponse.SC_FORBIDDEN);;
-			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
-			return;
-		}
-	}
-	
-	//This method is used to validate the token
-	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
-	}
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private UserDetailsService service;
 
-	//This method is setting up the context
-	private void setUpSpringAuthentication(Claims claims) {
-		@SuppressWarnings("unchecked")
-		List<String> authorities = (List) claims.get("authorities");
-		
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
-				authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-		SecurityContextHolder.getContext().setAuthentication(auth);
-	}
 
-	//This method checks if the JWT is included
-	private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse response) {
-		String authenticationHeader = request.getHeader(HEADER);
-		if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
-			return false;
-		return true;
-	}	
-	
+    @Override
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+
+        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+
+        String token = null;
+        String userName = null;
+
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            token = authorizationHeader.substring(7);
+            userName = jwtUtil.extractUsername(token);
+        }
+
+        if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails = service.loadUserByUsername(userName);
+
+            if (jwtUtil.validateToken(token, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }
 }

@@ -18,9 +18,13 @@
     "@angular/platform-browser": "^12.2.13",
     "@angular/platform-browser-dynamic": "^12.2.13",
     "@angular/router": "^12.2.13",
+<<<<<<< HEAD
 
     "@schematics/angular": "^9.1.15",
 
+=======
+    "@schematics/angular": "^9.1.0",
+>>>>>>> 61d4fbe0308bca73ef1fb3c96538fcaaba130d42
     "bootstrap": "^4.5.3",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^7.1.0",
