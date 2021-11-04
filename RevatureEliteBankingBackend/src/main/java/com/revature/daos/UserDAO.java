@@ -10,7 +10,9 @@ import com.revature.models.User;
 @Repository
 public interface UserDAO extends JpaRepository<User, Integer> {
 
+	
+//	Optional<User> findByUsername(String username); 
+
 	User findByUsername(String username);
-	//Optional<User> findByUserName(String username); 
 	
 }
