@@ -2,7 +2,9 @@ package com.revature.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,12 +28,17 @@ public class Transaction {
 	
 	// we'll let hibernate handle these
 	private double amount;
+	
+	@Column(name="transaction_type")
 	private TransactionType type;
+	
+	@Column(name="date_posted")
 	private Date date;
+	
 	private TransactionStatus status;
 	private String description;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id", nullable=false)
 	private Account account;
 	

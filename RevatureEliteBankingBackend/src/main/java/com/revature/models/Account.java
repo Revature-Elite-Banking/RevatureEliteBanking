@@ -2,6 +2,7 @@ package com.revature.models;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.enums.AccountType;
 
 @Entity //Mapping the Class as a DB entity
@@ -27,16 +29,18 @@ public class Account {
 	@Column(name = "account_id")
 	private int id;
 	
-	private Timestamp creationTime;
+	private Date creationTime;
 	private double balance;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
+	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 	
 	private AccountType type;
 	
-	@OneToMany(mappedBy="account")
+	@OneToMany(mappedBy="account", cascade = CascadeType.ALL)
+	@JsonIgnore
     private List<Transaction> transactions;
 
 	public Account() {
@@ -44,7 +48,7 @@ public class Account {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Account(int id, Timestamp creationTime, double balance, User user, AccountType type,
+	public Account(int id, Date creationTime, double balance, User user, AccountType type,
 			List<Transaction> transactions) {
 		super();
 		this.id = id;
@@ -55,7 +59,7 @@ public class Account {
 		this.transactions = transactions;
 	}
 
-	public Account(Timestamp creationTime, double balance, User user, AccountType type,
+	public Account(Date creationTime, double balance, User user, AccountType type,
 			List<Transaction> transactions) {
 		super();
 		this.creationTime = creationTime;
@@ -68,7 +72,7 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", creationTime=" + creationTime + ", balance=" + balance + ", user=" + user
-				+ ", type=" + type + ", transactions=" + transactions + "]";
+				+ ", type=" + type + ", transactions=" + transactions.size() + "]";
 	}
 
 	@Override
@@ -127,11 +131,11 @@ public class Account {
 		this.id = id;
 	}
 
-	public Timestamp getCreationTime() {
+	public Date getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(Timestamp creationTime) {
+	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 
@@ -167,4 +171,5 @@ public class Account {
 		this.transactions = transactions;
 	}
 
+	
 }
