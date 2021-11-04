@@ -22,7 +22,7 @@ import com.revature.models.AuthRequest;
 import com.revature.utils.JwtUtil;
 
 @RestController
-@RequestMapping(value="/success")
+@RequestMapping(value="/login")
 @CrossOrigin
 public class LoginController {
 	
@@ -41,7 +41,7 @@ public class LoginController {
 		return ResponseEntity.ok("successfully done");
 	}
 	
-	@PostMapping
+	@PostMapping(value="/validate")
 	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authrequest) throws Exception {
 		try {
 			authenticationManager.authenticate(
