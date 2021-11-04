@@ -1,4 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { IAccounts } from '../accounts';
+import { AccountsService } from '../accounts.service';
+//placeholder data
+import { ACCOUNTS } from '../mock-accounts';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  // placeholder info
+  accounts = ACCOUNTS;
+  id = 0
+  balance = 10
+  type = ''
+  //public accounts!: IAccounts; 
+
+  constructor(
+    private http:HttpClient,
+    private accountsService:AccountsService
+  ) { 
+  }
 
   ngOnInit(): void {
+    this.accountsService.getAccounts()
+      .subscribe(data => this.accountView(data))
+  }
+
+  accountView(accountsInfo:IAccounts){
+    this.id = accountsInfo.id
+    this.balance = accountsInfo.balance
+    this.type = accountsInfo.type    
+    //accounts = accountsInfo
   }
 
 }
