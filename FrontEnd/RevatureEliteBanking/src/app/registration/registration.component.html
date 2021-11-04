@@ -6,35 +6,35 @@
         <form id="loginForm" class="col text-center">
 
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="username" type="text" placeholder="Username" required class="form-control form-input">
+                <input id="username" type="text" placeholder="Username" required class="form-control form-input" [(ngModel)] = "username" name = "regUsernameField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="password" type="password" placeholder="Password" required class="form-control form-input">
+                <input id="password" type="password" placeholder="Password" required class="form-control form-input" [(ngModel)] = "password" name = "regPasswordField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="email" type="text" placeholder="email" required class="form-control form-input">
+                <input id="email" type="text" placeholder="email" required class="form-control form-input" [(ngModel)] = "email" name = "regEmailField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="fname" type="text" placeholder="First Name" required class="form-control form-input">
+                <input id="f_name" type="text" placeholder="First Name" required class="form-control form-input" [(ngModel)] = "f_name" name = "regFnameField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="lname" type="text" placeholder="Last Name" required class="form-control form-input">
+                <input id="l_name" type="text" placeholder="Last Name" required class="form-control form-input" [(ngModel)] = "l_name" name = "regLnameField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="street" type="text" placeholder="Street Address" required class="form-control form-input">
+                <input id="address" type="text" placeholder="Street Address" required class="form-control form-input" [(ngModel)] = "address" name = "regAddressField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="city" type="text" placeholder="City" required class="form-control form-input">
+                <input id="city" type="text" placeholder="City" required class="form-control form-input" [(ngModel)] = "city" name = "regCityField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="state" type="text" placeholder="State" required class="form-control form-input">
+                <input id="state" type="text" placeholder="State" required class="form-control form-input" [(ngModel)] = "state" name = "regStateField">
             </div>
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="zip" type="text" placeholder="Zip Code" required class="form-control form-input">
+                <input id="zip_code" type="number" placeholder="Zip Code" required class="form-control form-input" [(ngModel)] = "zip_code" name = "regZipCodeField">
             </div>
 
             <br>
-            <button id="registerButton" type="button" class="btn btn-dark" >Register</button>
+            <button id="registerButton" type="button" class="btn btn-dark" (click) = "register()">Register</button>
 
         </form>
 
