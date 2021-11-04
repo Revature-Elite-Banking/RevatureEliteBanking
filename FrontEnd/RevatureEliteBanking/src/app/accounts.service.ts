@@ -11,6 +11,6 @@ export class AccountsService {
   constructor(private http:HttpClient) { }
 
   getAccounts(): Observable<IAccounts>{
-    return this.http.post<IAccounts>('http://localhost:8090/user/get', localStorage.getItem("id_token"))
+    return this.http.post<IAccounts>('http://localhost:8090/accounts', localStorage.getItem("id_token"))
   }
 }

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IAccounts } from '../accounts';
 import { AccountsService } from '../accounts.service';
+//placeholder data
+import { ACCOUNTS } from '../mock-accounts';
 
 @Component({
   selector: 'app-account',
@@ -11,10 +13,11 @@ import { AccountsService } from '../accounts.service';
 export class AccountComponent implements OnInit {
 
   // placeholder info
-  name = ''
-  username = ''
-  chips = 10
-  public accounts!: IAccounts; 
+  accounts = ACCOUNTS;
+  id = 0
+  balance = 10
+  type = ''
+  //public accounts!: IAccounts; 
 
   constructor(
     private http:HttpClient,
@@ -28,10 +31,10 @@ export class AccountComponent implements OnInit {
   }
 
   accountView(accountsInfo:IAccounts){
-    this.name = accountsInfo.name
-    this.username = accountsInfo.username
-    this.chips = accountsInfo.chipCount
-    
+    this.id = accountsInfo.id
+    this.balance = accountsInfo.balance
+    this.type = accountsInfo.type    
+    //accounts = accountsInfo
   }
 
 }

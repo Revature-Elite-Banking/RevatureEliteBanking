@@ -1,7 +1,15 @@
 export interface IAccounts {
-    ID: Number
-    name: string,
+    id: number,
+    creationTime: number,
+    balance: number,
+    user_id: number,
+    type: string,
+    transaction: []
+}
+
+/*
+name: string,
     username: string,
     friends:[],
     chipCount: number
-}
+*/
