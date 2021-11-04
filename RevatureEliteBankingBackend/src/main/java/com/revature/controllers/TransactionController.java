@@ -28,8 +28,7 @@ public class TransactionController {
 		this.tService = tService;
 	}
 	
-	// get all transactions
-	// GetMapping means this method will be called for a Get request
+	// get all transactions (probably wont use but here for potential tests)
 	@GetMapping
 	public ResponseEntity<List<Transaction>> getAllTransactions() {
 		List<Transaction> t = tService.getAllTransactions();
@@ -37,24 +36,39 @@ public class TransactionController {
 		return ResponseEntity.status(200).body(t);
 	}
 	
-	@GetMapping("/{id}") // -- /transaction/5 -> returns the transaction with id = 5
+	// get a specific transaction based on id
+	@GetMapping("/{id}")
 	public ResponseEntity<Transaction> getTransactionById(@PathVariable int id) {
-		@SuppressWarnings("unused")
 		Transaction t = tService.getTransactionById(id);
-		return null;
+		return ResponseEntity.status(200).body(t);
 	}
 	
-	@PostMapping("/add") // -- /transaction/add
+	// get transactions by account
+	@GetMapping("/account/{account_id}")
+	public ResponseEntity<List<Transaction>> getTransactionsByAccount(@PathVariable int id) {
+		List<Transaction> t = tService.getTransactionsByAccount(id);
+		return ResponseEntity.status(200).body(t);
+		
+	}
+	
+	// get transactions by user
+	@GetMapping("/user/{user_id}")
+	public ResponseEntity<List<Transaction>> getUserTransactionHistory(@PathVariable int id) {
+		List<Transaction> t = tService.getUserTransactionHistory(id);
+		return ResponseEntity.status(200).body(t);
+	}
+	
+	// add a new transaction
+	@PostMapping("/add")
 	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction tran) {
-		@SuppressWarnings("unused")
 		Transaction t = tService.addTransaction(tran);
-		return null;
+		return ResponseEntity.status(200).body(t);
 	}
 	
+	// delete a transaction (probably wont be used but here for potential tests)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Transaction> deleteTransaction(@PathVariable int id) {
-		@SuppressWarnings("unused")
 		Transaction t = tService.deleteTransaction(id);
-		return null;
+		return ResponseEntity.status(200).body(t);
 	}
 }

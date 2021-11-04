@@ -1,7 +1,7 @@
 package com.revature.models;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.enums.AccountType;
 
 @Entity //Mapping the Class as a DB entity
@@ -26,17 +27,51 @@ public class Account {
 	@Column(name = "account_id")
 	private int id;
 	
-	private Timestamp creationTime;
+	private Date creationTime;
 	private double balance;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
-	private int user_id;
+	@ManyToOne(fetch = FetchType.EAGER) 
+	@JoinColumn(name = "user_id")
+	@JsonIgnore
+	private User user;
 	
 	private AccountType type;
 	
-	@OneToMany(mappedBy="account")
-    private ArrayList<Transaction> transactions;
+	@OneToMany(mappedBy="account", cascade = CascadeType.ALL)
+	@JsonIgnore
+    private List<Transaction> transactions;
+
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Account(int id, Date creationTime, double balance, User user, AccountType type,
+			List<Transaction> transactions) {
+		super();
+		this.id = id;
+		this.creationTime = creationTime;
+		this.balance = balance;
+		this.user = user;
+		this.type = type;
+		this.transactions = transactions;
+	}
+
+	public Account(Date creationTime, double balance, User user, AccountType type,
+			List<Transaction> transactions) {
+		super();
+		this.creationTime = creationTime;
+		this.balance = balance;
+		this.user = user;
+		this.type = type;
+		this.transactions = transactions;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", creationTime=" + creationTime + ", balance=" + balance + ", user=" + user
+				+ ", type=" + type + ", transactions=" + transactions.size() + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -49,7 +84,7 @@ public class Account {
 		result = prime * result + id;
 		result = prime * result + ((transactions == null) ? 0 : transactions.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + user_id;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -78,48 +113,12 @@ public class Account {
 			return false;
 		if (type != other.type)
 			return false;
-		if (user_id != other.user_id)
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", creationTime=" + creationTime + ", balance=" + balance + ", user_id=" + user_id
-				+ ", type=" + type + ", transactions=" + transactions + "]";
-	}
-
-	public Account(int id, Timestamp creationTime, double balance, int user_id, AccountType type,
-			ArrayList<Transaction> transactions) {
-		super();
-		this.id = id;
-		this.creationTime = creationTime;
-		this.balance = balance;
-		this.user_id = user_id;
-		this.type = type;
-		this.transactions = transactions;
-	}
-
-	public Account(Timestamp creationTime, double balance, int user_id, AccountType type,
-			ArrayList<Transaction> transactions) {
-		super();
-		this.creationTime = creationTime;
-		this.balance = balance;
-		this.user_id = user_id;
-		this.type = type;
-		this.transactions = transactions;
-	}
-
-	public Account(Timestamp creationTime, double balance, int user_id, AccountType type) {
-		super();
-		this.creationTime = creationTime;
-		this.balance = balance;
-		this.user_id = user_id;
-		this.type = type;
-	}
-
-	public Account() {
-		super();
 	}
 
 	public int getId() {
@@ -130,11 +129,11 @@ public class Account {
 		this.id = id;
 	}
 
-	public Timestamp getCreationTime() {
+	public Date getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(Timestamp creationTime) {
+	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 
@@ -146,12 +145,12 @@ public class Account {
 		this.balance = balance;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public AccountType getType() {
@@ -162,15 +161,13 @@ public class Account {
 		this.type = type;
 	}
 
-	public ArrayList<Transaction> getTransactions() {
+	public List<Transaction> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(ArrayList<Transaction> transactions) {
+	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-	
-	
-	
 
+	
 }
