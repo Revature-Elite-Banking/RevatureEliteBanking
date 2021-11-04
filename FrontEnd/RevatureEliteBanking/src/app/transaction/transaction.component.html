@@ -1,2 +1,26 @@
 <p>in the transaction page!</p>
-<!--<button (click)="onClickGetHistory()">Click me!</button>-->
+<button (click)="onClickGetHistory()">Click me!</button>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Date</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">type</th>
+        <th scope="col">Account ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of transArray">
+        <td>{{this.transArray[i].id}}</td>
+        <td>{{this.transArray[i].amount}}</td>
+        <td>{{this.transArray[i].date}}</td>
+        <td>{{this.transArray[i].description}}</td>
+        <td>{{this.transArray[i].status}}</td>
+        <td>{{this.transArray[i].type}}</td>
+        <td>{{this.transArray[i].account_id}}</td>
+      </tr>
+    </tbody>
+</table>

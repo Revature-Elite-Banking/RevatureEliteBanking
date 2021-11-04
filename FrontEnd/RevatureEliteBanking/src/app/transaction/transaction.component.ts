@@ -14,7 +14,7 @@ export class TransactionComponent implements OnInit {
 
   ngOnInit(): void {
     // subscribe to the transaction observable
-    //*
+    /*
     this.tranService.getTransactions().subscribe(
       (allTransactions:any)=>{
         this.transArray = allTransactions;
@@ -24,22 +24,23 @@ export class TransactionComponent implements OnInit {
         console.log("No information");
       }
     );
-    //*/
+    /*/
   }
 
-  /*
+  
   onClickGetHistory(): void {
     // subscribe to the transaction observable
     this.tranService.getTransactions().subscribe(
       (allTransactions:any)=>{
         this.transArray = allTransactions;
         console.log(this.transArray);
+        
       },
       ()=>{
         console.log("No information");
       }
     );
   }
-  */
+  
 
 }
