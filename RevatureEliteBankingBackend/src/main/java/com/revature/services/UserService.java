@@ -32,5 +32,9 @@ public class UserService {
 		return uDAO.findAll();
 		
 	}
+	
+	public User findUserByUsername(String username) {
+		return uDAO.findByUsername(username);
+	}
 
 }
