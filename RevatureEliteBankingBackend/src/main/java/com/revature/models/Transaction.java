@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 
