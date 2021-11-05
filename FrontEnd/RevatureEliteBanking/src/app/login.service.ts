@@ -43,10 +43,6 @@ export class LoginService {
       let response2 = await fetch(this.url + "user/" + username, {
         method: "GET",
         credentials:"include",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
       })
       if (response2.status === 200){
         let data = await response2.json();
