@@ -14,8 +14,10 @@ export class AccountComponent implements OnInit {
 
   // placeholder info
   accounts = ACCOUNTS;
+  
+  //accounts2!: IAccounts;
   id = 0
-  balance = 10
+  balance = 0
   type = ''
   //public accounts!: IAccounts; 
 
@@ -31,10 +33,14 @@ export class AccountComponent implements OnInit {
   }
 
   accountView(accountsInfo:IAccounts){
-    this.id = accountsInfo.id
+    //this.id = accountsInfo.id
     this.balance = accountsInfo.balance
     this.type = accountsInfo.type    
     //accounts = accountsInfo
+  }
+
+  red(userID:number) {
+    console.log(userID)
   }
 
 }
