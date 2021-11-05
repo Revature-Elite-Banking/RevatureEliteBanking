@@ -32,7 +32,6 @@ public class Account {
 	private Date creationTime;
 	private double balance;
 	
-
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
@@ -40,7 +39,6 @@ public class Account {
 	
 	private AccountType type;
 	
-
 	@OneToMany(mappedBy="account", cascade = CascadeType.ALL)
 	@JsonIgnore
     private List<Transaction> transactions;
@@ -61,7 +59,6 @@ public class Account {
 		this.type = type;
 		this.transactions = transactions;
 	}
-
 
 	public Account(Date creationTime, double balance, User user, AccountType type,
 			List<Transaction> transactions) {
