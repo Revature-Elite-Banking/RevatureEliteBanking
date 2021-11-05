@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.AuthRequest;
+import com.revature.services.UserLoginDetailService;
 import com.revature.utils.JwtUtil;
 
 
