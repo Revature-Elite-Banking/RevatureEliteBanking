@@ -7,7 +7,7 @@ import { RegistrationDto } from './models/registration-dto';
 })
 export class RegistrationService {
 
-  private url:string = "http://localhost:8090/"
+  private url:string = "http://localhost:8090/project3/"
 
   constructor(private router:Router) { }
 
@@ -15,10 +15,14 @@ export class RegistrationService {
     console.log(username + password + email + fname + lname + street + city + state + zip +"in service");
     let rdto = new RegistrationDto(username, password, email, fname, lname, street, city, state, zip);
     console.log(rdto);
-    let response = await fetch(this.url + "registration", { // need to update to correct endpoint
+    let response = await fetch(this.url + "user", { // need to update to correct endpoint
       method: "POST",
       body: JSON.stringify(rdto),
-      credentials:"include"
+      credentials:"include",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
     })
     if (response.status == 201){
       let data = response.headers;
