@@ -32,24 +32,17 @@ public class Account {
 	private Date creationTime;
 	private double balance;
 	
-<<<<<<< HEAD
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "user_id")
-=======
+
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
->>>>>>> ba061fb1c9acc48ab19893b32e72c4d445cd9a31
 	private User user;
 	
 	private AccountType type;
 	
-<<<<<<< HEAD
-	@OneToMany(mappedBy="account")
-=======
+
 	@OneToMany(mappedBy="account", cascade = CascadeType.ALL)
 	@JsonIgnore
->>>>>>> ba061fb1c9acc48ab19893b32e72c4d445cd9a31
     private List<Transaction> transactions;
 
 	public Account() {
@@ -57,11 +50,8 @@ public class Account {
 		// TODO Auto-generated constructor stub
 	}
 
-<<<<<<< HEAD
-	public Account(int id, Timestamp creationTime, double balance, User user, AccountType type,
-=======
+
 	public Account(int id, Date creationTime, double balance, User user, AccountType type,
->>>>>>> ba061fb1c9acc48ab19893b32e72c4d445cd9a31
 			List<Transaction> transactions) {
 		super();
 		this.id = id;
@@ -72,11 +62,8 @@ public class Account {
 		this.transactions = transactions;
 	}
 
-<<<<<<< HEAD
-	public Account(Timestamp creationTime, double balance, User user, AccountType type,
-=======
+
 	public Account(Date creationTime, double balance, User user, AccountType type,
->>>>>>> ba061fb1c9acc48ab19893b32e72c4d445cd9a31
 			List<Transaction> transactions) {
 		super();
 		this.creationTime = creationTime;
@@ -89,11 +76,7 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", creationTime=" + creationTime + ", balance=" + balance + ", user=" + user
-<<<<<<< HEAD
-				+ ", type=" + type + ", transactions=" + transactions + "]";
-=======
 				+ ", type=" + type + ", transactions=" + transactions.size() + "]";
->>>>>>> ba061fb1c9acc48ab19893b32e72c4d445cd9a31
 	}
 
 	@Override
