@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.daos.AccountDAO;
-import com.revature.daos.UserDAO;
 import com.revature.models.Account;
 import com.revature.services.AccountService;
 
@@ -29,14 +27,11 @@ public class AccountController {
 	//Value:Bearer <Their JWT>
 
 	private AccountService AS;
-	private UserDAO UDAO;
-	
 	
 	@Autowired 
-	public AccountController(AccountService AS, UserDAO udao) {
+	public AccountController(AccountService AS) {
 		super();
 		this.AS = AS;
-		this.UDAO = udao;
 	}
 	
 	//The front end calls this for the account view

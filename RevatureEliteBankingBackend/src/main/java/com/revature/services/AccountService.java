@@ -32,7 +32,6 @@ public class AccountService {
 	
 	public Optional<List<Account>> getAccountsByUsername(String username) {
 		User user = uDao.findByUsername(username);
-		System.out.println(user.getUsername());
 		return aDao.findByUser(user);
 	}
 	
