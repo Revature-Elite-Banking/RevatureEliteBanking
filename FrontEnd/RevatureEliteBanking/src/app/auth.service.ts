@@ -21,7 +21,7 @@ const httpOptions = {
 export class AuthService {
 
   loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
-  url: string = "http://localhost:8090/anilib/"
+  url: string = "http://localhost:8090/project3/"
   tokenKey: string = 'access_token'
   constructor(
     private http: HttpClient,
@@ -31,7 +31,7 @@ export class AuthService {
 
   register(user: User): Observable<User> {
     let http = new HttpClient(this.handler)
-    return http.post<any>(this.url + "user/register", user)
+    return http.post<any>(this.url + "user", user)
       .pipe(
         catchError(this.handleError)
       )

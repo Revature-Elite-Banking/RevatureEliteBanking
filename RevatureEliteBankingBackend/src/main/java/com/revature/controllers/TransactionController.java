@@ -33,6 +33,10 @@ public class TransactionController {
 	public ResponseEntity<List<Transaction>> getAllTransactions() {
 		List<Transaction> t = tService.getAllTransactions();
 		
+		if(t == null) {
+			return ResponseEntity.status(422).body(null);
+		}
+		
 		return ResponseEntity.status(200).body(t);
 	}
 	
@@ -40,21 +44,36 @@ public class TransactionController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Transaction> getTransactionById(@PathVariable int id) {
 		Transaction t = tService.getTransactionById(id);
+		
+		if(t == null) {
+			return ResponseEntity.status(422).body(null);
+		}
+		
 		return ResponseEntity.status(200).body(t);
 	}
 	
 	// get transactions by account
 	@GetMapping("/account/{account_id}")
-	public ResponseEntity<List<Transaction>> getTransactionsByAccount(@PathVariable int id) {
-		List<Transaction> t = tService.getTransactionsByAccount(id);
+	public ResponseEntity<List<Transaction>> getTransactionsByAccount(@PathVariable int account_id) {
+		List<Transaction> t = tService.getTransactionsByAccount(account_id);
+		
+		if(t == null) {
+			return ResponseEntity.status(422).body(null);
+		}
+		
 		return ResponseEntity.status(200).body(t);
 		
 	}
 	
 	// get transactions by user
 	@GetMapping("/user/{user_id}")
-	public ResponseEntity<List<Transaction>> getUserTransactionHistory(@PathVariable int id) {
-		List<Transaction> t = tService.getUserTransactionHistory(id);
+	public ResponseEntity<List<Transaction>> getUserTransactionHistory(@PathVariable int user_id) {
+		List<Transaction> t = tService.getUserTransactionHistory(user_id);
+		
+		if(t == null) {
+			return ResponseEntity.status(422).body(null);
+		}
+		
 		return ResponseEntity.status(200).body(t);
 	}
 	
@@ -62,13 +81,23 @@ public class TransactionController {
 	@PostMapping("/add")
 	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction tran) {
 		Transaction t = tService.addTransaction(tran);
-		return ResponseEntity.status(200).body(t);
+		
+		if(t == null) {
+			return ResponseEntity.status(422).body(null);
+		}
+		
+		return ResponseEntity.status(201).body(t);
 	}
 	
 	// delete a transaction (probably wont be used but here for potential tests)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Transaction> deleteTransaction(@PathVariable int id) {
 		Transaction t = tService.deleteTransaction(id);
+		
+		if(t == null) {
+			return ResponseEntity.status(422).body(null);
+		}
+		
 		return ResponseEntity.status(200).body(t);
 	}
 }
