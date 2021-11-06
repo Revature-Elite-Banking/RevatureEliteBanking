@@ -15,32 +15,31 @@ export class AccountComponent implements OnInit {
   // placeholder info
   accounts = ACCOUNTS;
   
-  //accounts2!: IAccounts;
-  id = 0
-  balance = 0
-  type = ''
+  accounts2!: IAccounts;
   //public accounts!: IAccounts; 
 
+  //injecting our dependencies
   constructor(
     private http:HttpClient,
     private accountsService:AccountsService
   ) { 
   }
 
+  //using the getAccounts() function from our accountsService 
+  //then subscribing and redirecting the results/response to accountView() function, see below
   ngOnInit(): void {
     this.accountsService.getAccounts()
       .subscribe(data => this.accountView(data))
   }
 
+  //Takes in an IAccounts object and assigns it to a variable; So that it can be referenced by our component
   accountView(accountsInfo:IAccounts){
-    //this.id = accountsInfo.id
-    this.balance = accountsInfo.balance
-    this.type = accountsInfo.type    
-    //accounts = accountsInfo
+    this.accounts2 = accountsInfo 
   }
 
-  red(userID:number) {
-    console.log(userID)
+  //function for when user clicks on account element
+  red(accountID:number) {
+    console.log(accountID)
   }
 
 }

@@ -3,8 +3,13 @@
     
     <h2>Account Summary</h2>
 
+    <!--
+        Backend will send a List of Account objects; 
+        this ul element will for-loop through the list and assign the vlaues to their appropriate spot
+        //accountsInfo
+    -->
     <ul>
-        <li *ngFor="let account of accounts">
+        <li *ngFor="let account of accounts"> 
             <a class="card" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" (click) = 'red(account.id)'>
                 <span class="inside-content-left"> {{account.type}} <br> ####-00{{account.id}} </span>
                 <div >${{account.balance}} <br> Available Balance</div>   
@@ -14,7 +19,6 @@
     </ul> 
 
 </div>
-
 
 
 

@@ -8,9 +8,17 @@ import { IAccounts } from './accounts';
 })
 export class AccountsService {
 
+  //Variables: (1) Location of the handler to retrieve accounts; (2) the username of the current user
+  private url:string = 'http://localhost:8090/project3//account/view/';
+  username = localStorage.getItem("username")
+  
+  //inject dependency HttpClient
   constructor(private http:HttpClient) { }
-
+  
+  //Function that returns an Observable of type IAccounts --> See accounts.ts
+      // makes a get request to handler (url+'username')
   getAccounts(): Observable<IAccounts>{
-    return this.http.post<IAccounts>('http://localhost:8090/accounts', localStorage.getItem("id_token"))
+    return this.http.get<IAccounts>(this.url + this.username)
   }
+  
 }

@@ -31,6 +31,7 @@ export class LoginService {
     if (response.status == 200){
       console.log("login successful");
       
+      localStorage.setItem('username', username);
       //this.router.navigate(['/home']) //rout to users homepage or wherever we want after successful login
     }
     else{
