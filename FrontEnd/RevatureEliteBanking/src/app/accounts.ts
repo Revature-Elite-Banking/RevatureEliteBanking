@@ -1,17 +1,18 @@
+
+//Interface that provides a structure for recieving account objects
+//this will match/correspond to the object that the server returns  
 export interface IAccounts {
 
-id:number, 
-creationTime: number,
-balance: number,
-user_id: number,
-type: string,
-transaction: []
+id          : number, 
+creationTime: string,
+balance     : number,
+type        : string,
 
 }
 
 
 /*
-user: [
+    user: [
         id:number, 
         username:string, 
         password:string, 
@@ -22,7 +23,7 @@ user: [
         city:string, 
         state:string, 
         zipCode:string, 
-        user:[]
+        accounts:[]
     ]
     creationTime: number,
     balance: number,
