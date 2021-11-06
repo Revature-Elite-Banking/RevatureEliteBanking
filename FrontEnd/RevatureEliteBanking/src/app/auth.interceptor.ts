@@ -14,6 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
+  //This interceptor will take any HttpRequest, even fetch requests, and clone and add the authorization header for security
   intercept(request: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>> {
     if(this.authService.IsLoggedIn) {
       request = request.clone({
