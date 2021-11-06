@@ -16,7 +16,7 @@ export class RegistrationComponent implements OnInit {
   public address:string = "";
   public city:string = "";
   public state:string = "";
-  public zip_code:number = 0;
+  public zip_code:number = NaN;
 
   constructor(private rs:RegistrationService) { }
 
@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit {
         (this.email == "") || (this.f_name == "") ||
         (this.l_name == "") || (this.address == "") ||
         (this.city == "") || (this.state == "") ||
-        (this.zip_code == 0)){
+        (this.zip_code == NaN)){
       alert("Please fill all fields.");
       return;
     }
