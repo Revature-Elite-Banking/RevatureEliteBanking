@@ -67,4 +67,9 @@ export class LoginService {
       console.log("Username or password not found");
     }
   }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }
