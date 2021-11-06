@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.daos.AccountDAO;
 import com.revature.daos.TransactionRepository;
 import com.revature.daos.UserDAO;
+import com.revature.enums.TransactionType;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
 import com.revature.models.User;
@@ -48,14 +49,27 @@ public class TransactionService {
 		}
 	}
 
-	public Transaction addTransaction(Transaction tran) {
+	public Transaction addTransaction(Transaction tran, int account_id) {
 		try {
-			/* test 
-			tran.setAccount(aDao.findById(1).get());
-			tran.setDate(new Date());
+			// get the account mapped to the id
+			Account a = aDao.findById(account_id).get();
 			
-			//*/
+			// set the account for the new transaction
+			tran.setAccount(a);
 			Transaction t = tDao.save(tran);
+			
+			// if a deposit then add money to the account
+			if(t.getType() == TransactionType.DEPOSIT) {
+				a.setBalance(a.getBalance() + t.getAmount());
+			}
+			// any other type of transaction takes money out of the account
+			else {
+				a.setBalance(a.getBalance() - t.getAmount());
+			}
+			
+			// save the changes to the account
+			a = aDao.save(a);
+			
 			return t;
 		}
 		catch (Exception e) {
@@ -66,8 +80,24 @@ public class TransactionService {
 
 	public Transaction deleteTransaction(int id) {
 		try {
+			// get the transaction from the id and delete it
 			Transaction t = tDao.findById(id).get();
 			tDao.delete(t);
+			
+			// get the account mapped to the transaction
+			Account a = t.getAccount();
+			
+			// if a transaction is being deleted (if it fails) it should be reflected in the account's balance
+			// Deposits = take money out, Withdraw/Transfer = put money back in
+			if(t.getType() == TransactionType.DEPOSIT) {
+				a.setBalance(a.getBalance() - t.getAmount());
+			}
+			else {
+				a.setBalance(a.getBalance() + t.getAmount());
+			}
+			
+			// save the changes to the account
+			aDao.save(a);
 			
 			return t;
 		}
