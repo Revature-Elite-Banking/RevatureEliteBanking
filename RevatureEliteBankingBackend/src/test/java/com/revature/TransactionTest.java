@@ -78,7 +78,7 @@ public class TransactionTest {
 	@Order(1)
 	public void testAddTransaction() {
 		Transaction t = new Transaction(200, TransactionType.WITHDRAWL, new Date(), TransactionStatus.PENDING,
-				"bought dogecoin", aDao.findById(1).get());
+				"bought more dogecoin", aDao.findById(1).get());
 		Transaction addedTransaction = tService.addTransaction(t);
 		
 		assertTrue(t.equals(addedTransaction));
