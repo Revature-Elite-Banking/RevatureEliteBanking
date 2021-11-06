@@ -26,6 +26,7 @@ import com.revature.enums.AccountType;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
 import com.revature.models.User;
+import com.revature.services.AccountService;
 import com.revature.services.LoginService;
 import com.revature.services.UserLoginDetailService;
 import com.revature.services.UserService;
@@ -39,14 +40,16 @@ public class AccountDAOTest {
 	private LoginService ls;
 	private UserLoginDetailService ulds;
 	private UserService us;
+	private AccountService as;
 	
 	//Autowiring service classes
 	@Autowired
-	public AccountDAOTest(UserLoginDetailService ulds, UserService us, LoginService ls) {
+	public AccountDAOTest(UserLoginDetailService ulds, UserService us, LoginService ls, AccountService as) {
 		super();
 		this.ulds = ulds;
 		this.us = us;
 		this.ls = ls;
+		this.as = as;
 	}
 	
 	//variables and objects to use within tests (Left out creation time due to Date not being able to be called statically
@@ -103,5 +106,12 @@ public class AccountDAOTest {
 		result = ls.checkCredentials("fake", "asd");
 		
 		assertFalse(result);
+	}
+	
+	//This class was initially for DAO layer testing
+	//I'm not sure who put login method testing in here
+	@Test
+	public void testNewAccount() {
+		as.newAccount(a);
 	}
 }
