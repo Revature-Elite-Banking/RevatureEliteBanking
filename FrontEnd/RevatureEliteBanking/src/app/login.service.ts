@@ -10,7 +10,7 @@ import { User } from './models/user';
 })
 export class LoginService {
 
-  private url:string = "http://localhost:8090/"
+  private url:string = 'http://localhost:8090/project3/';
 
 
   constructor(private http:HttpClient, private router:Router) { }
@@ -23,10 +23,15 @@ export class LoginService {
     console.log(username + password + "in service");
     let ldto = new LoginDto(username,password);
     console.log(ldto);
+    
     let response = await fetch(this.url + "login", { //may need to change to proper handler
       method: "POST",
       body: JSON.stringify(ldto),
-      credentials:"include"
+      credentials:"include",
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
     })
     if (response.status == 200){
       console.log("login successful");
