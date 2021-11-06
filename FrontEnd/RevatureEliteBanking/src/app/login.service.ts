@@ -22,9 +22,9 @@ export class LoginService {
 
   //This is the login function used to verify login information and store the jwt in the localStorage
   async login(username:string, password:string) {
-    console.log(username + password + "in service");
+    // console.log(username + password + "in service");
     let ldto = new LoginDto(username,password);
-    console.log(ldto);
+    // console.log(ldto);
     
     //Using fetch to verify login information
     let response = await fetch(this.url + "login", { //may need to change to proper handler
@@ -48,6 +48,9 @@ export class LoginService {
       let response2 = await fetch(this.url + "user/" + username, {
         method: "GET",
         credentials:"include",
+        headers:{
+          'Authorization': 'Bearer ' + localStorage.getItem('tokenKey')
+        }
       })
       if (response2.status === 200){
         let data = await response2.json();

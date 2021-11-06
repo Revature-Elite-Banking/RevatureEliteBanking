@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   }
   
   login():void{
-    console.log(this.username + this.password);
     if((this.username == "") || (this.password == "")){
       alert("Please fill all fields.");
       return;
