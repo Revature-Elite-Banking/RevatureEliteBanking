@@ -83,7 +83,7 @@ public class TransactionTest {
 	public void testAddTransaction() {
 		double preTranBalance = aDao.findById(1).get().getBalance();
 		
-		Transaction t = new Transaction(800, TransactionType.WITHDRAWL, new Date(), TransactionStatus.PENDING,
+		Transaction t = new Transaction(800, TransactionType.WITHDRAWL, null, TransactionStatus.PENDING,
 				"bought more dogecoin", null);
 		Transaction addedTransaction = tService.addTransaction(t, 1);
 		

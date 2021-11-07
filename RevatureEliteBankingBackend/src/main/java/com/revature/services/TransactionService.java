@@ -56,6 +56,8 @@ public class TransactionService {
 			
 			// set the account for the new transaction
 			tran.setAccount(a);
+			tran.setDate(new Date());
+			
 			Transaction t = tDao.save(tran);
 			
 			// if a deposit then add money to the account
