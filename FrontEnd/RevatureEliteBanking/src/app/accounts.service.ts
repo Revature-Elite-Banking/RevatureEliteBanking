@@ -9,7 +9,7 @@ import { IAccounts } from './accounts';
 export class AccountsService {
 
   //Variables: (1) Location of the handler to retrieve accounts; (2) the username of the current user
-  private url:string = 'http://localhost:8090/project3//account/view/';
+  private url:string = 'http://localhost:8090/project3/account/view/';
   username = localStorage.getItem("username")
   
   //inject dependency HttpClient
