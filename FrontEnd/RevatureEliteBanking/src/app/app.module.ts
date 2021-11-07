@@ -10,6 +10,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AlertifyService } from './services/alertify.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ AlertifyService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
