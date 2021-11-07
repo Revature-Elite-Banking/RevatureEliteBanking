@@ -21,7 +21,7 @@ import com.revature.utils.JwtUtil;
 
 @RestController
 @RequestMapping(value="/login")
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 public class LoginController {
 	
 	@Autowired

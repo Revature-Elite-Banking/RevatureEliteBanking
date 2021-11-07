@@ -13,8 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.stereotype.Repository;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Repository
 @Entity //Mapping the Class as a DB entity
@@ -48,6 +49,7 @@ public class User {
 	private String zipCode;
 	
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JsonIgnore
 	private List<Account> accounts;
 
 	

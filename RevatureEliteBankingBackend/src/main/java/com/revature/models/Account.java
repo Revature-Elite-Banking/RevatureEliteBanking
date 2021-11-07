@@ -34,13 +34,13 @@ public class Account {
 	
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "user_id")
-	@JsonIgnore
 	private User user;
 	
 	private AccountType type;
 	
 	@OneToMany(mappedBy="account", cascade = CascadeType.ALL)
 	@JsonIgnore
+	//At the very bottom of the boilerplate code there's a method to add to this list
     private List<Transaction> transactions;
 
 	public Account() {
@@ -67,6 +67,12 @@ public class Account {
 		this.user = user;
 		this.type = type;
 		this.transactions = transactions;
+	}
+
+	public Account(double balance, AccountType type) {
+		super();
+		this.balance = balance;
+		this.type = type;
 	}
 
 	@Override
@@ -169,6 +175,10 @@ public class Account {
 
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
+	}
+	
+	public void addTransactions(Transaction tran) {
+		this.transactions.add(tran);
 	}
 
 	

@@ -1,7 +1,13 @@
 export class User {
-    user_id:number;
-
-    constructor(user_id:number) {
-        this.user_id = user_id;
-    }
+    accounts!:Array<number>;
+    user_id!:number;
+    address!:string;
+    city!:string;
+    email!:string;
+    firstName!:string;
+    lastName!:string;
+    password!:string;
+    state!:string;
+    username!:string;
+    zipCode!:string;   
 }

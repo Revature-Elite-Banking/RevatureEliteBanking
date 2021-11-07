@@ -2,6 +2,7 @@
     position: relative;
     left:25%;
 
+    background-color: #B9B9BA;
     display: inline-flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -66,4 +67,5 @@
 
   ul {
     list-style-type: none;
+    padding-left: 0;
   }

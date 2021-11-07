@@ -3,8 +3,23 @@
     
     <h2>Account Summary</h2>
 
+    <div>
+    <button>Create New Account</button>
+    <select>
+        <option value="" disabled selected>Select Account Type</option>
+        <option>CHECKINGS</option>
+        <option>SAVINGS</option>
+    </select>
+    <input type="number" id="quantity" name="quantity" min="0" placeholder="Initial Balance">
+    </div>
+
+    <!--
+        Backend will send a List of Account objects; 
+        this ul element will for-loop through the list and assign the vlaues to their appropriate spot
+        //accountsInfo
+    -->
     <ul>
-        <li *ngFor="let account of accounts">
+        <li *ngFor="let account of accounts"> 
             <a class="card" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" (click) = 'red(account.id)'>
                 <span class="inside-content-left"> {{account.type}} <br> ####-00{{account.id}} </span>
                 <div >${{account.balance}} <br> Available Balance</div>   
@@ -23,7 +38,6 @@
 
 
 
-
 <!-- Misc
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
 
@@ -32,4 +46,21 @@
             {{account.type}} {{account.total}} {{account.four}}
         </li>
     </ul>
+
+    <form class="create-account" [formGroup]="form" (submit)="submit()">
+		<h1 class="h2 fw-normal mb-3 mt-3 text-center">Please register</h1>
+        <select>
+            <option value="" disabled selected>Select Account Type</option>
+            <option>CHECKINGS</option>
+            <option>SAVINGS</option>
+        </select>
+        <input formControlName="name" class="form-control"  placeholder="Name" required>
+    </form>
+
+    <select>
+        <option value="" disabled selected>Select Account Type</option>
+        <option>CHECKINGS</option>
+        <option>SAVINGS</option>
+    </select>
+    <input type="number" id="quantity" name="quantity" min="0" placeholder="Initial Balance">
 -->

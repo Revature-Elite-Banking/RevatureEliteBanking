@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 
@@ -47,7 +48,8 @@ public class Transaction {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	//Status is included in this class for future groups
+	//The group who made this project won't connect to any payment services, and status would only matter for groups who would
 	public Transaction(int id, double amount, TransactionType type, Date date, TransactionStatus status,
 			String description, Account account) {
 		super();
@@ -60,7 +62,6 @@ public class Transaction {
 		this.account = account;
 	}
 
-
 	public Transaction(double amount, TransactionType type, Date date, TransactionStatus status, String description,
 			Account account) {
 		super();
@@ -72,6 +73,14 @@ public class Transaction {
 		this.account = account;
 	}
 
+	public Transaction(double amount, TransactionType type, Date date, String description, Account account) {
+		super();
+		this.amount = amount;
+		this.type = type;
+		this.date = date;
+		this.description = description;
+		this.account = account;
+	}
 
 	@Override
 	public int hashCode() {
