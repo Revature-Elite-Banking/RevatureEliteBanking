@@ -12,11 +12,8 @@ import { ACCOUNTS } from '../mock-accounts';
 })
 export class AccountComponent implements OnInit {
 
-  // placeholder info
-  accounts = ACCOUNTS;
-  
-  accounts2!: IAccounts;
-  //public accounts!: IAccounts; 
+  //accounts = ACCOUNTS; //mock-data: can be used to test view of components without the need of the server
+  public accounts!: any; //account object to be populated by server response 
 
   //injecting our dependencies
   constructor(
@@ -34,7 +31,7 @@ export class AccountComponent implements OnInit {
 
   //Takes in an IAccounts object and assigns it to a variable; So that it can be referenced by our component
   accountView(accountsInfo:IAccounts){
-    this.accounts2 = accountsInfo 
+    this.accounts = accountsInfo 
   }
 
   //function for when user clicks on account element
