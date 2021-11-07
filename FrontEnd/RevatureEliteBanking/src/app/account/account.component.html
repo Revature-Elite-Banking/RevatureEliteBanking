@@ -3,6 +3,16 @@
     
     <h2>Account Summary</h2>
 
+    <div>
+    <button>Create New Account</button>
+    <select>
+        <option value="" disabled selected>Select Account Type</option>
+        <option>CHECKINGS</option>
+        <option>SAVINGS</option>
+    </select>
+    <input type="number" id="quantity" name="quantity" min="0" placeholder="Initial Balance">
+    </div>
+
     <!--
         Backend will send a List of Account objects; 
         this ul element will for-loop through the list and assign the vlaues to their appropriate spot
@@ -36,4 +46,21 @@
             {{account.type}} {{account.total}} {{account.four}}
         </li>
     </ul>
+
+    <form class="create-account" [formGroup]="form" (submit)="submit()">
+		<h1 class="h2 fw-normal mb-3 mt-3 text-center">Please register</h1>
+        <select>
+            <option value="" disabled selected>Select Account Type</option>
+            <option>CHECKINGS</option>
+            <option>SAVINGS</option>
+        </select>
+        <input formControlName="name" class="form-control"  placeholder="Name" required>
+    </form>
+
+    <select>
+        <option value="" disabled selected>Select Account Type</option>
+        <option>CHECKINGS</option>
+        <option>SAVINGS</option>
+    </select>
+    <input type="number" id="quantity" name="quantity" min="0" placeholder="Initial Balance">
 -->

@@ -24,7 +24,7 @@ export class LoginService {
   async login(username:string, password:string) {
     // console.log(username + password + "in service");
     let ldto = new LoginDto(username,password);
-    // console.log(ldto);
+     console.log(ldto);
     
     //Using fetch to verify login information
     let response = await fetch(this.url + "login", { //may need to change to proper handler
@@ -37,6 +37,7 @@ export class LoginService {
       'Content-Type': 'application/json'
       },
     })
+    
     //If the login status returns true then we store the key as tokenKey
     if (response.status == 200){
       console.log("login successful");
@@ -61,10 +62,16 @@ export class LoginService {
         // let retrievedObject = localStorage.getItem('user');
         // console.log(JSON.parse(String(retrievedObject)));
       }
+<<<<<<< HEAD
       this.router.navigate(['/account']) //route to users homepage or wherever we want after successful login
+=======
+      //this.router.navigate(['/home']) //rout to users homepage or wherever we want after successful login
+      localStorage.setItem('username', username);
+>>>>>>> main
     }
     else{
       console.log("Username or password not found");
     }
+
   }
 }
