@@ -4,6 +4,9 @@ import { IAccounts } from '../accounts';
 import { AccountsService } from '../accounts.service';
 //placeholder data
 import { ACCOUNTS } from '../mock-accounts';
+import { LoginService } from '../login.service';
+
+
 
 @Component({
   selector: 'app-account',
@@ -21,8 +24,11 @@ export class AccountComponent implements OnInit {
   //injecting our dependencies
   constructor(
     private http:HttpClient,
-    private accountsService:AccountsService
-  ) { 
+    private accountsService:AccountsService,
+    private ls:LoginService
+  ) 
+
+  { 
   }
 
   //using the getAccounts() function from our accountsService 
@@ -41,5 +47,8 @@ export class AccountComponent implements OnInit {
   red(accountID:number) {
     console.log(accountID)
   }
-
+  
+  exitApp(){
+    this.ls.logout;
+  }
 }
