@@ -62,12 +62,9 @@ export class LoginService {
         // let retrievedObject = localStorage.getItem('user');
         // console.log(JSON.parse(String(retrievedObject)));
       }
-<<<<<<< HEAD
       this.router.navigate(['/account']) //route to users homepage or wherever we want after successful login
-=======
       //this.router.navigate(['/home']) //rout to users homepage or wherever we want after successful login
       localStorage.setItem('username', username);
->>>>>>> main
     }
     else{
       console.log("Username or password not found");
