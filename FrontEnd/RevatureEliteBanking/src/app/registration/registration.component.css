@@ -17,3 +17,9 @@
     font-family: sans-serif;
     margin-bottom: 30px;
 }
+
+.alert {
+    color: red;
+    position: fixed;
+    margin-left: 75%;
+}

@@ -6,8 +6,27 @@
         <form id="loginForm" class="col text-center">
 
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="username" type="text" placeholder="Username" required class="form-control form-input" [(ngModel)] = "username" name = "regUsernameField">
+
+                <input id="username" type="text" placeholder="Username" required class="form-control form-input" 
+                    required minlength="4" maxlength="16" 
+                    [(ngModel)] = "username" name = "regUsernameField" #name = "ngModel">
+
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="alert">
+
+                    <div *ngIf="name.errors?.['required']">
+                        username is required.
+                    </div>
+                    <div *ngIf="name.errors?.['minlength']">
+                        username must be at least 4 characters long.
+                    </div>
+                    <div *ngIf="name.errors?.['maxlength']">
+                        username cannot be more than 16 characters long.
+                    </div>
+
+                </div>
             </div>
+            
             <div class="input-group-prepend w-50 mx-auto">
                 <input id="password" type="password" placeholder="Password" required class="form-control form-input" [(ngModel)] = "password" name = "regPasswordField">
             </div>
