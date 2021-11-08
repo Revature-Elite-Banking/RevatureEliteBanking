@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountIdService } from '../services/account-id.service';
 import { TransactionService } from '../services/transaction.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { TransactionService } from '../services/transaction.service';
 })
 export class TransactionComponent implements OnInit {
 
-  constructor(private tranService:TransactionService) { }
+  constructor(private tranService:TransactionService, private accountId:AccountIdService) { }
 
   transArray: any[] = [];
 
@@ -25,6 +26,7 @@ export class TransactionComponent implements OnInit {
       }
     );
     //*/
+    console.log(this.accountId.Id)
   }
 
   /*

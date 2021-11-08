@@ -8,7 +8,7 @@ export class AlertifyService {
 
   constructor() { }
   success(message:string){
-    //alertify.alert().set('Notification', 'This is a new message!').show();
+    alertify.alert().set('Notification', 'This is a new message!').show();
     alertify.success(message);
   }
    

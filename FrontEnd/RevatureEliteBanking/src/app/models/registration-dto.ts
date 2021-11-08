@@ -7,7 +7,7 @@ export class RegistrationDto {
     public address:string;
     public city:string;
     public state:string;
-    public zipCode:number;
+    public zipCode:string;
 
     constructor(
         username:string,
@@ -18,7 +18,7 @@ export class RegistrationDto {
         address:string,
         city:string,
         state:string,
-        zipCode:number
+        zipCode:string
         )
         {
             this.username = username;
