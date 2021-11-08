@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { TransactionService } from '../services/transaction.service';
 
 @Component({
@@ -7,10 +8,12 @@ import { TransactionService } from '../services/transaction.service';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit {
-
+  
   constructor(private tranService:TransactionService) { }
-
+  public transactionArray = this.tranService.transactionArray
   transArray: any[] = [];
+  infoArray:any
+
 
   ngOnInit(): void {
     // subscribe to the transaction observable
@@ -24,10 +27,16 @@ export class TransactionComponent implements OnInit {
         console.log("No information");
       }
     );
-
-    this.tranService.parseTransactions(); //calls function to get needed data from JSON object
+   
+    
   }
 
-
+getInfo():void{
+  
+   let infoArray=this.tranService.parseTransactions(this.transArray); //calls function to get needed data from JSON object
+  console.log(infoArray)
+  this.infoArray = infoArray
+  console.log(infoArray)
+}
 
 }

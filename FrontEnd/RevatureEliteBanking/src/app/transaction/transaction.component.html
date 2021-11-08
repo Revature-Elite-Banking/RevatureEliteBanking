@@ -10,9 +10,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of this.transfersefvice.transactionArray">
+    <tr *ngFor="let entry of this.infoArray">
       <td>{{entry[0]}}</td>
-      <td>{{entry[1]}}</td>
+      <td>${{entry[1]}}</td>
       <td>{{entry[2]}}</td>
       <td>{{entry[3]}}</td>
       <td>{{entry[4]}}</td>
@@ -21,3 +21,4 @@
   </tbody>
 </table>
 <button type="button" class="btn btn-dark btn-large btn-block nav-item nav-link-edit" [routerLink]="['/account']">Back</button>
+<button type="button" class="btn btn-dark btn-large btn-block nav-item nav-link-edit" (click)="getInfo()">Info test</button>

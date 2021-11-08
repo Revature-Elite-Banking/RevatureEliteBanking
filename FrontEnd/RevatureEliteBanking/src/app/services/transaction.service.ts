@@ -17,21 +17,35 @@ export class TransactionService {
     return this.allTransactions
   }
 
-  parseTransactions():any{
-    for (let i = 0; i < this.allTransactions.length; i++){
+  parseTransactions(newInfo:any):any{
+    let usableInfo:any[] =[]
+    
+    
+    for (let i = 0; i < newInfo.length; i++){
       let tempArray =[]
+
       //this injects the parsed data into a new temporary array that will be added to the "main read array"
-      if (this.allTransactions.account.id == 1){
-        tempArray.push(this.allTransactions[i].id)
-        tempArray.push(this.allTransactions[i].amount) 
-        tempArray.push(this.allTransactions[i].date) 
-        tempArray.push(this.allTransactions[i].description) 
-        tempArray.push(this.allTransactions[i].status)
-        tempArray.push(this.allTransactions[i].type) 
-        this.transactionArray.push(tempArray)  
+
+      if (newInfo[i].id === 1){ //replace 1 with account ID number
+        tempArray.push(newInfo[i].id)
+        tempArray.push(newInfo[i].amount) 
+        tempArray.push(newInfo[i].date) 
+        tempArray.push(newInfo[i].description)
+        if (newInfo[i].status == null){
+          tempArray.push("PENDING")
+        } else{
+          tempArray.push(newInfo[i].status)
+        }
+        tempArray.push(newInfo[i].type) 
+        usableInfo.push(tempArray)  
+        console.log(tempArray)
       }
       
     }
+    console.log(usableInfo)
+  return usableInfo
   }
+  
+  
 
 }
