@@ -78,9 +78,10 @@ public class TransactionController {
 	}
 	
 	// add a new transaction
-	@PostMapping("/add")
-	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction tran) {
-		Transaction t = tService.addTransaction(tran);
+	@PostMapping("/add/{account_id}")
+	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction tran, @PathVariable int account_id) {
+		// We need some way to know which account to add the transaction to
+		Transaction t = tService.addTransaction(tran, account_id);
 		
 		if(t == null) {
 			return ResponseEntity.status(422).body(null);
