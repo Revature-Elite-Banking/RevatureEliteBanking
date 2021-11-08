@@ -24,22 +24,10 @@ export class TransactionComponent implements OnInit {
         console.log("No information");
       }
     );
-    //*/
+
+    this.tranService.parseTransactions(); //calls function to get needed data from JSON object
   }
 
-  /*
-  onClickGetHistory(): void {
-    // subscribe to the transaction observable
-    this.tranService.getTransactions().subscribe(
-      (allTransactions:any)=>{
-        this.transArray = allTransactions;
-        console.log(this.transArray);
-      },
-      ()=>{
-        console.log("No information");
-      }
-    );
-  }
-  */
+
 
 }
