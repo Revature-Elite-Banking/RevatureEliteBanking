@@ -1,16 +1,19 @@
 
 <div class="card-container">
     
-    <h2>Account Summary</h2>
+    <h3>Account Summary</h3>
 
     <div>
-    <button>Create New Account</button>
-    <select>
-        <option value="" disabled selected>Select Account Type</option>
-        <option>CHECKINGS</option>
-        <option>SAVINGS</option>
-    </select>
-    <input type="number" id="quantity" name="quantity" min="0" placeholder="Initial Balance">
+        <button>Create New Account</button>
+        
+        <select >
+            <option value="" disabled selected>Select Account Type</option>
+            <option>CHECKINGS</option>
+            <option>SAVINGS</option>
+        </select>
+        <input type="number" placeholder="Initial Balance" required [(ngModel)] = "balance">
+        
+        <button (click)="submit()">submit</button>
     </div>
 
     <!--

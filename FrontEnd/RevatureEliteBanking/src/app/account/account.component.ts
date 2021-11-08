@@ -16,7 +16,8 @@ export class AccountComponent implements OnInit {
 
   //accounts = ACCOUNTS; //mock-data: can be used to test the view of components without the need of the server, see mock-accounts.ts
   public accounts!: any; //instantiate an account object (type any) to be populated by server response 
-  @Input() item = 0;
+  public balance: number = 0;
+  public type: string = '';
 
   //injecting our dependencies
   constructor(private http:HttpClient, private accountsService:AccountsService, private accountId:AccountIdService, private router:Router) { }
@@ -40,6 +41,10 @@ export class AccountComponent implements OnInit {
   red(accountID:number) {
     this.accountId.Id = accountID //Id from account-id.service.ts is changed to whatever the accountID is
     this.router.navigate(['/transaction'])
+  }
+
+  submit() {
+    console.log(this.balance + '' + this.type)
   }
 
 }
