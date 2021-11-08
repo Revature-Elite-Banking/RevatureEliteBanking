@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IAccounts } from '../accounts';
 import { AccountsService } from '../accounts.service';
 //placeholder data
 import { ACCOUNTS } from '../mock-accounts';
+import { AccountIdService } from '../services/account-id.service';
 
 @Component({
   selector: 'app-account',
@@ -12,16 +14,14 @@ import { ACCOUNTS } from '../mock-accounts';
 })
 export class AccountComponent implements OnInit {
 
-  //accounts = ACCOUNTS; //mock-data: can be used to test view of components without the need of the server
-  public accounts!: any; //account object to be populated by server response 
+  //accounts = ACCOUNTS; //mock-data: can be used to test the view of components without the need of the server, see mock-accounts.ts
+  public accounts!: any; //instantiate an account object (type any) to be populated by server response 
+  @Input() item = 0;
 
   //injecting our dependencies
-  constructor(
-    private http:HttpClient,
-    private accountsService:AccountsService
-  ) { 
-  }
+  constructor(private http:HttpClient, private accountsService:AccountsService, private accountId:AccountIdService, private router:Router) { }
 
+  
   //using the getAccounts() function from our accountsService 
   //then subscribing and redirecting the results/response to accountView() function, see below
   ngOnInit(): void {
@@ -31,12 +31,15 @@ export class AccountComponent implements OnInit {
 
   //Takes in an IAccounts object and assigns it to a variable; So that it can be referenced by our component
   accountView(accountsInfo:IAccounts){
-    this.accounts = accountsInfo 
+    this.accounts = accountsInfo //assigning the data from the response to our instantiated accounts object
   }
 
-  //function for when user clicks on account element
+
+  //Function: takes in corresponding account.id when user clicks on the account element and "saves it", see account-id.service.ts
+  //then navigates to the transaction component
   red(accountID:number) {
-    console.log(accountID)
+    this.accountId.Id = accountID //Id from account-id.service.ts is changed to whatever the accountID is
+    this.router.navigate(['/transaction'])
   }
 
 }
