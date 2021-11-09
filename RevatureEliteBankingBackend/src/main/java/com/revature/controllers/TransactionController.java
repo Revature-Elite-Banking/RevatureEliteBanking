@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Account;
 import com.revature.models.Transaction;
+import com.revature.models.TransferDTO;
 import com.revature.services.TransactionService;
 
 @RestController
@@ -117,8 +118,13 @@ public class TransactionController {
 	
 	//Transfer money between two accounts
 	@PostMapping("/transfer")
+<<<<<<< HEAD
 	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody int senderID,@RequestBody int recipientID,@RequestBody double amount) {
 		tService.transferFunds(senderID, recipientID, amount);
+=======
+	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
+		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
+>>>>>>> bcddac275776fa5be54ed77b75deb7d720f39788
 		
 		return ResponseEntity.status(200).body("Successful transfer");
 	}
