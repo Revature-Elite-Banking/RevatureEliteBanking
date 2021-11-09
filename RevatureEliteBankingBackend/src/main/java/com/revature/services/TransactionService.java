@@ -138,4 +138,29 @@ public class TransactionService {
 			return null;
 		}
 	}
+	
+	public void transferFunds (Account sender, Account recipient, double amount) {
+		//Update the account balances
+		double senderTotal = sender.getBalance()-amount;
+		double recipientTotal = recipient.getBalance()+amount;
+		
+		sender.setBalance(senderTotal);
+		recipient.setBalance(recipientTotal);
+		
+		aDao.save(sender);
+		aDao.save(recipient);
+		
+		
+		//Create two transaction objects
+		Date date = new Date();
+		double amountOut = amount*-1;
+		
+		Transaction moneySent = new Transaction(amountOut, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
+		Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
+		
+		tDao.save(moneySent);
+		tDao.save(moneyRecieved);
+		
+		
+	}
 }

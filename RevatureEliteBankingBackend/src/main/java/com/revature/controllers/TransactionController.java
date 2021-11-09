@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.models.Account;
 import com.revature.models.Transaction;
 import com.revature.services.TransactionService;
 
@@ -100,5 +101,13 @@ public class TransactionController {
 		}
 		
 		return ResponseEntity.status(200).body(t);
+	}
+	
+	//Transfer money between two accounts
+	@PostMapping("/transfer")
+	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody Account sender, Account recipient, double amount) {
+		tService.transferFunds(sender, recipient, amount);
+		
+		return ResponseEntity.status(200).body("Successful transfer");
 	}
 }
