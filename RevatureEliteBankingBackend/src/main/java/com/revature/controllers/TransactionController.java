@@ -117,8 +117,8 @@ public class TransactionController {
 	
 	//Transfer money between two accounts
 	@PostMapping("/transfer")
-	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody Account sender, Account recipient, double amount) {
-		tService.transferFunds(sender, recipient, amount);
+	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody int senderID, int recipientID, double amount) {
+		tService.transferFunds(senderID, recipientID, amount);
 		
 		return ResponseEntity.status(200).body("Successful transfer");
 	}

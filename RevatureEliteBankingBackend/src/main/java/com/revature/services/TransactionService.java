@@ -148,8 +148,11 @@ public class TransactionService {
 		}
 	}
 	
-	public void transferFunds (Account sender, Account recipient, double amount) {
+	public void transferFunds (int senderID, int recipientID, double amount) {
 		//Update the account balances
+		Account sender = aDao.getById(senderID);
+		Account recipient = aDao.getById(recipientID);
+		
 		double senderTotal = sender.getBalance()-amount;
 		double recipientTotal = recipient.getBalance()+amount;
 		
