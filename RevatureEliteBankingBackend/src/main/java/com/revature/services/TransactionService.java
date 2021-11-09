@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.daos.AccountDAO;
 import com.revature.daos.TransactionRepository;
 import com.revature.daos.UserDAO;
+import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
@@ -57,6 +58,9 @@ public class TransactionService {
 			// set the account for the new transaction
 			tran.setAccount(a);
 			tran.setDate(new Date());
+			//As of now all transactions default to completed
+			//This probably won't change unless actual payment services are implemented
+			tran.setStatus(TransactionStatus.COMPLETED);
 			
 			Transaction t = tDao.save(tran);
 			
