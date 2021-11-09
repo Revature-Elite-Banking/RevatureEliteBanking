@@ -36,7 +36,9 @@ public class LoginController {
 		return ResponseEntity.ok("successfully done");
 	}
 	
-
+	/*
+	 * User Login Authentication and JWT Token sent with response
+	 */
 	@PostMapping
 	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authrequest) throws Exception {
 		try {
@@ -49,7 +51,7 @@ public class LoginController {
 
 			return ResponseEntity
 		            .status(HttpStatus.FORBIDDEN)
-		            .body("Error Message");
+		            .body("Invalid Username/Password");
 		}
 		
 		String jwt =  jwtUtil.generateToken(authrequest.getUsername());

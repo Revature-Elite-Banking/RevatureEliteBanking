@@ -19,21 +19,28 @@ public class UserService {
 		this.uDAO = uDAO;
 	}
 	
-	
+	/*
+	 * New User details is added to database
+	 */
 	public User insertUser(User u) {
 		
 		 return uDAO.save(u);
 		
 	}
 
-
+	/*
+	 * Listing all the User
+	 */
 	public List<User> findUserAll() {
 		
 		return uDAO.findAll();
 		
 	}
 
-
+	
+	/*
+	 * returning user details by username
+	 */
 	public User findUserByUsername(String username) {
 		
 		return uDAO.findByUsername(username);

@@ -13,17 +13,24 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtil {
-
+	
+	//Your JWT Secret Key..it can be anything, make it secure as possible	
     private String secret = "mySecretKey";
 
+    /*
+     *  Extracting username from jwt token obtained from frontend to validate
+     */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
+    
+    /*
+     * Obtaining the expiry of token for validation
+     */
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
-
+    
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -31,7 +38,7 @@ public class JwtUtil {
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
-
+    
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
@@ -41,6 +48,9 @@ public class JwtUtil {
         return createToken(claims, username);
     }
 
+    /*
+     * Creating the JWT token based on the claims set
+     */
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
@@ -48,6 +58,9 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
+    /*
+     * validating the Jwt token
+     */
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

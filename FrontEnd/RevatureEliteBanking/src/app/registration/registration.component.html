@@ -3,57 +3,197 @@
     <div class="page-centered">
         <h1 class="register-h1">Register New Account</h1>
 
-        <form id="loginForm" class="col text-center">
+        <form id="registrationForm" class="col text-center" #registrationForm="ngForm">
 
             <div class="input-group-prepend w-50 mx-auto">
 
                 <input id="username" type="text" placeholder="Username" required class="form-control form-input" 
                     required minlength="4" maxlength="16" 
-                    [(ngModel)] = "username" name = "regUsernameField" #name = "ngModel">
+                    [(ngModel)] = "username" name = "regUsername" #regUsername = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
 
-                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                <div *ngIf="regUsername.invalid && (regUsername.dirty || regUsername.touched)"
                     class="alert">
 
-                    <div *ngIf="name.errors?.['required']">
-                        username is required.
+                    <div *ngIf="regUsername.errors?.['required']">
+                        Username is required.
                     </div>
-                    <div *ngIf="name.errors?.['minlength']">
-                        username must be at least 4 characters long.
+                    <div *ngIf="regUsername.errors?.['minlength']">
+                        Username must be at least 4 characters long.
                     </div>
-                    <div *ngIf="name.errors?.['maxlength']">
-                        username cannot be more than 16 characters long.
+                    <div *ngIf="regUsername.errors?.['maxlength']">
+                        Username cannot be more than 16 characters long.
                     </div>
 
                 </div>
             </div>
             
             <div class="input-group-prepend w-50 mx-auto">
-                <input id="password" type="password" placeholder="Password" required class="form-control form-input" [(ngModel)] = "password" name = "regPasswordField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="email" type="text" placeholder="email" required class="form-control form-input" [(ngModel)] = "email" name = "regEmailField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="f_name" type="text" placeholder="First Name" required class="form-control form-input" [(ngModel)] = "f_name" name = "regFnameField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="l_name" type="text" placeholder="Last Name" required class="form-control form-input" [(ngModel)] = "l_name" name = "regLnameField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="address" type="text" placeholder="Street Address" required class="form-control form-input" [(ngModel)] = "address" name = "regAddressField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="city" type="text" placeholder="City" required class="form-control form-input" [(ngModel)] = "city" name = "regCityField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="state" type="text" placeholder="State" required class="form-control form-input" [(ngModel)] = "state" name = "regStateField">
-            </div>
-            <div class="input-group-prepend w-50 mx-auto">
-                <input id="zip_code" type="number" placeholder="Zip Code" required class="form-control form-input" [(ngModel)] = "zip_code" name = "regZipCodeField">
+
+                <input id="password" type="password" placeholder="Password" required class="form-control form-input" 
+                    required minlength="8" 
+                    [(ngModel)] = "password" name = "regPassword" #regPassword = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regPassword.invalid && (regPassword.dirty || regPassword.touched)"
+                    class="alert">
+
+                    <div *ngIf="regPassword.errors?.['required']">
+                        Password is required.
+                    </div>
+                    <div *ngIf="regPassword.errors?.['minlength']">
+                        Password must be at least 8 characters long.
+                    </div>
+
+                </div>
+
             </div>
 
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="email" type="text" placeholder="Email" required class="form-control form-input" 
+                    required email
+                    [(ngModel)] = "email" name = "regEmail" #regEmail = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regEmail.invalid && (regEmail.dirty || regEmail.touched)"
+                    class="alert">
+
+                    <div *ngIf="regEmail.errors?.['required']">
+                        Email is required.
+                    </div>
+                    <div *ngIf="regEmail.errors?.['email']">
+                        Please enter a valid email address.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="f_name" type="text" placeholder="First Name" required class="form-control form-input"
+                    required pattern="[a-zA-Z]*" 
+                    [(ngModel)] = "f_name" name = "regFname" #regFname = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regFname.invalid && (regFname.dirty || regFname.touched)"
+                    class="alert">
+
+                    <div *ngIf="regFname.errors?.['required']">
+                        First name is required.
+                    </div>
+                    <div *ngIf="regFname.errors?.['pattern']">
+                        First name must contain only letters.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="l_name" type="text" placeholder="Last Name" required class="form-control form-input"
+                    required pattern="[a-zA-Z]*" 
+                    [(ngModel)] = "l_name" name = "regLname" #regLname = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regLname.invalid && (regLname.dirty || regLname.touched)"
+                    class="alert">
+
+                    <div *ngIf="regLname.errors?.['required']">
+                        Last name is required.
+                    </div>
+                    <div *ngIf="regLname.errors?.['pattern']">
+                        Last name must contain only letters.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="address" type="text" placeholder="Street Address" required class="form-control form-input"
+                    required pattern="[a-zA-Z0-9 ]*" 
+                    [(ngModel)] = "address" name = "regAddress" #regAddress = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regAddress.invalid && (regAddress.dirty || regAddress.touched)"
+                    class="alert">
+
+                    <div *ngIf="regAddress.errors?.['required']">
+                        Street address is required.
+                    </div>
+                    <div *ngIf="regAddress.errors?.['pattern']">
+                        Street address must contain only letters and numbers.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="city" type="text" placeholder="City" required class="form-control form-input"
+                    required pattern="[a-zA-Z]*" 
+                    [(ngModel)] = "city" name = "regCity" #regCity = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regCity.invalid && (regCity.dirty || regCity.touched)"
+                    class="alert">
+
+                    <div *ngIf="regCity.errors?.['required']">
+                        City name is required.
+                    </div>
+                    <div *ngIf="regCity.errors?.['pattern']">
+                        City name must contain only letters.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="state" type="text" placeholder="State" required class="form-control form-input"
+                    required pattern="[A-Z][A-Z]" 
+                    [(ngModel)] = "state" name = "regState" #regState = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regState.invalid && (regState.dirty || regState.touched)"
+                    class="alert">
+
+                    <div *ngIf="regState.errors?.['required']">
+                        State is required.
+                    </div>
+                    <div *ngIf="regState.errors?.['pattern']">
+                        State must be capitalized 2 letter abbriviation. (ex. VA, IL, FL)
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group-prepend w-50 mx-auto">
+
+                <input id="zip_code" type="text" placeholder="Zip Code" required class="form-control form-input"
+                    required pattern="[0-9]*" minlength="5" maxlength="5"
+                    [(ngModel)] = "zip_code" name = "regZipCode" #regZipCode = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+
+                <div *ngIf="regZipCode.invalid && (regZipCode.dirty || regZipCode.touched)"
+                    class="alert">
+
+                    <div *ngIf="regZipCode.errors?.['required']">
+                        Zip Code is required.
+                    </div>
+                    <div *ngIf="regZipCode.errors?.['pattern']">
+                        Zip Code must contain only numbers.
+                    </div>
+                    <div *ngIf="regZipCode.errors?.['minlength']">
+                        Zip Code must be 5 digits.
+                    </div>
+                    <div *ngIf="regZipCode.errors?.['maxlength']">
+                        Zip Code must be 5 digits.
+                    </div>
+
+                </div>
+
+            </div>
             <br>
-            <button id="registerButton" type="button" class="btn btn-dark" (click) = "register()">Register</button>
+            <button id="registerButton" type="button" class="btn btn-dark" (click) = "register()" [disabled] = "!registrationForm.form.valid">Register</button>
 
         </form>
 

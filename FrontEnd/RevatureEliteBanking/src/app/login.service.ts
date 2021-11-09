@@ -71,4 +71,9 @@ export class LoginService {
     }
 
   }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }
