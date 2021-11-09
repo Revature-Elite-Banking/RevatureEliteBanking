@@ -150,6 +150,7 @@ public class TransactionService {
 	
 	public void transferFunds (int senderID, int recipientID, double amount) {
 		//Update the account balances
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!"+amount+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		Account sender = aDao.getById(senderID);
 		Account recipient = aDao.getById(recipientID);
 		
@@ -165,9 +166,9 @@ public class TransactionService {
 		
 		//Create two transaction objects
 		Date date = new Date();
-		double amountOut = amount*-1;
+		//double amountOut = amount*-1;
 		
-		Transaction moneySent = new Transaction(amountOut, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
+		Transaction moneySent = new Transaction(amount, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
 		Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
 		
 		tDao.save(moneySent);
