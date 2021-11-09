@@ -20,7 +20,7 @@
     all: unset;
     border-radius: 4px;
     border: 1px solid #eee;
-    background-color: #fafafa;
+    background-color: #FCB414;
     height: 95px;
     width: 700px;
     margin: 0 8px 16px;
@@ -72,6 +72,7 @@
     list-style-type: none;
     padding-left: 0;
   }
+<<<<<<< HEAD
   ::ng-deep body{
     background: url("../../assets/revature-final.jpg") no-repeat fixed;
     -webkit-background-size: cover;
@@ -119,3 +120,30 @@ button.submitBtn {
 button.submitBtn:hover {
   background: repeating-linear-gradient(142deg, #dc3545, transparent 100px);
 }
+=======
+
+  .nav-bar{
+    background-color: #72A4C2;
+    height: 100px;
+  }
+
+  #revlogo{
+    position: absolute;
+    height: 100px;
+    width: auto;
+    left:20%;
+  }
+
+  .contain{
+    background-image: linear-gradient( #e6e6e6, #B9B9BA);
+  }
+
+  .container-element{
+    margin-left: 20px;
+    margin-bottom: 50px;
+  }
+
+  #title{
+    margin-left: 16px;
+  }
+>>>>>>> d438b9fc5ef7b121e5d1274de7c75170f05cdb11

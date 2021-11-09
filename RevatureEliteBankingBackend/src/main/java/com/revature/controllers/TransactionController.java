@@ -13,40 +13,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.models.Account;
 import com.revature.models.Transaction;
+import com.revature.models.TransferDTO;
 import com.revature.services.TransactionService;
 
-@RestController // combines @Controller and @ResponseBody, looks cleaner
+@RestController
 @RequestMapping(value="/transaction") // specfies the endpoint for the controller (transaction in this case)
 @CrossOrigin(origins="http://localhost:4200/", allowCredentials="true")
 public class TransactionController {
 	
 	private TransactionService tService;
 	
+	// inject the needed service class
 	@Autowired
 	public TransactionController(TransactionService tService) {
 		this.tService = tService;
 	}
 	
-	// get all transactions (probably wont use but here for potential tests)
-	@GetMapping
+	// get all transactions
+	@GetMapping // method is called with a get request with the base endpoint (/transaction)
 	public ResponseEntity<List<Transaction>> getAllTransactions() {
+		// get the list of transactions from the service class
 		List<Transaction> t = tService.getAllTransactions();
 		
+		// if the list is null, there was an error in getting the transactions from the database (db)
 		if(t == null) {
-			return ResponseEntity.status(422).body(null);
+			// send a response with a null body and the appropriate status code - no content code 204
+			return ResponseEntity.status(204).body(null);
 		}
 		
+		// the list was successfully retrieved from the db
+		// set the body to the list and the status code to ok - 200
 		return ResponseEntity.status(200).body(t);
 	}
 	
 	// get a specific transaction based on id
 	@GetMapping("/{id}")
 	public ResponseEntity<Transaction> getTransactionById(@PathVariable int id) {
+		// get a transaction based on a given id
 		Transaction t = tService.getTransactionById(id);
 		
 		if(t == null) {
-			return ResponseEntity.status(422).body(null);
+			return ResponseEntity.status(204).body(null);
 		}
 		
 		return ResponseEntity.status(200).body(t);
@@ -55,10 +64,11 @@ public class TransactionController {
 	// get transactions by account
 	@GetMapping("/account/{account_id}")
 	public ResponseEntity<List<Transaction>> getTransactionsByAccount(@PathVariable int account_id) {
+		// get a list of transactions that belong to the account with the given id
 		List<Transaction> t = tService.getTransactionsByAccount(account_id);
 		
 		if(t == null) {
-			return ResponseEntity.status(422).body(null);
+			return ResponseEntity.status(204).body(null);
 		}
 		
 		return ResponseEntity.status(200).body(t);
@@ -67,11 +77,12 @@ public class TransactionController {
 	
 	// get transactions by user
 	@GetMapping("/user/{user_id}")
-	public ResponseEntity<List<Transaction>> getUserTransactionHistory(@PathVariable int user_id) {
-		List<Transaction> t = tService.getUserTransactionHistory(user_id);
+	public ResponseEntity<List<Transaction>> getTransactionsByUser(@PathVariable int user_id) {
+		// get a list of transactions that belong to the user with the given id
+		List<Transaction> t = tService.getTransactionsByUser(user_id);
 		
 		if(t == null) {
-			return ResponseEntity.status(422).body(null);
+			return ResponseEntity.status(204).body(null);
 		}
 		
 		return ResponseEntity.status(200).body(t);
@@ -80,25 +91,43 @@ public class TransactionController {
 	// add a new transaction
 	@PostMapping("/add/{account_id}")
 	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction tran, @PathVariable int account_id) {
-		// We need some way to know which account to add the transaction to
+		// add the transaction to the account with the given id
+		// returns the added transaction or null if unsuccessfull
 		Transaction t = tService.addTransaction(tran, account_id);
 		
 		if(t == null) {
-			return ResponseEntity.status(422).body(null);
+			return ResponseEntity.status(204).body(null);
 		}
 		
 		return ResponseEntity.status(201).body(t);
 	}
 	
-	// delete a transaction (probably wont be used but here for potential tests)
+	// delete a transaction
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Transaction> deleteTransaction(@PathVariable int id) {
+		// delete the transaction with the given id
+		// returns the deleted transaction or null if unsuccessful
 		Transaction t = tService.deleteTransaction(id);
 		
 		if(t == null) {
-			return ResponseEntity.status(422).body(null);
+			return ResponseEntity.status(204).body(null);
 		}
 		
 		return ResponseEntity.status(200).body(t);
+	}
+	
+	//Transfer money between two accounts
+	@PostMapping("/transfer")
+<<<<<<< HEAD
+
+	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
+		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
+
+=======
+	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
+		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
+>>>>>>> ffdab309d7c5f88e7fd29f68c72b443305cb7ec5
+		
+		return ResponseEntity.status(200).body("Successful transfer");
 	}
 }

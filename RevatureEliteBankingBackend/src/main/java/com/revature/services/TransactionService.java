@@ -9,18 +9,21 @@ import org.springframework.stereotype.Service;
 import com.revature.daos.AccountDAO;
 import com.revature.daos.TransactionRepository;
 import com.revature.daos.UserDAO;
+import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
 import com.revature.models.User;
 
+// Service Layer for Transactions
 @Service
 public class TransactionService {
 
 	private TransactionRepository tDao;
 	private UserDAO uDao;
 	private AccountDAO aDao;
-	
+
+	// Injecting the DAOs needed to access different tables from the database
 	@Autowired
 	public TransactionService(TransactionRepository tDao, UserDAO uDao, AccountDAO aDao) {
 		this.tDao = tDao;
@@ -30,11 +33,11 @@ public class TransactionService {
 	
 	public List<Transaction> getAllTransactions() {
 		// try catch blocks in case an exception occurs while accessing the database
+		// if an exception occurs, a null object is returned
 		try {
 			return tDao.findAll();
 		}
 		catch(Exception e) {
-			System.out.println("Failed to get all transactions");
 			return null;
 		}
 	}
@@ -44,23 +47,26 @@ public class TransactionService {
 			return tDao.findById(id).get();
 		}
 		catch (Exception e) {
-			System.out.println("Failed to get a transaction with id = " + id);
 			return null;
 		}
 	}
 
 	public Transaction addTransaction(Transaction tran, int account_id) {
 		try {
-			// get the account mapped to the id
+			// get the account with the given id
 			Account a = aDao.findById(account_id).get();
 			
-			// set the account for the new transaction
+			// set the date and account for the new transaction
 			tran.setAccount(a);
 			tran.setDate(new Date());
+			//As of now all transactions default to completed
+			//This probably won't change unless actual payment services are implemented
+			tran.setStatus(TransactionStatus.COMPLETED);
 			
+			// save the new transaction to the database
 			Transaction t = tDao.save(tran);
 			
-			// if a deposit then add money to the account
+			// if the transaction is a deposit then add money to the account
 			if(t.getType() == TransactionType.DEPOSIT) {
 				a.setBalance(a.getBalance() + t.getAmount());
 			}
@@ -72,24 +78,24 @@ public class TransactionService {
 			// save the changes to the account
 			a = aDao.save(a);
 			
+			// return the added transaction
 			return t;
 		}
 		catch (Exception e) {
-			System.out.println("Failed to add a transaction: " + tran);
 			return null;
 		}
 	}
 
 	public Transaction deleteTransaction(int id) {
 		try {
-			// get the transaction from the id and delete it
+			// get the transaction from the id and delete it from the db
 			Transaction t = tDao.findById(id).get();
 			tDao.delete(t);
 			
 			// get the account mapped to the transaction
 			Account a = t.getAccount();
 			
-			// if a transaction is being deleted (if it fails) it should be reflected in the account's balance
+			// if a transaction is being deleted it should be reflected in the account's balance
 			// Deposits = take money out, Withdraw/Transfer = put money back in
 			if(t.getType() == TransactionType.DEPOSIT) {
 				a.setBalance(a.getBalance() - t.getAmount());
@@ -101,37 +107,73 @@ public class TransactionService {
 			// save the changes to the account
 			aDao.save(a);
 			
+			// return the deleted account
 			return t;
 		}
 		catch (Exception e) {
-			System.out.println("Failed to delete a transaction with id = " + id);
 			return null;
 		}
 	}
 
 	public List<Transaction> getTransactionsByAccount(int account_id) {
 		try {
+			// get the account based on the id
 			Account a = aDao.findById(account_id).get();
+			
+			// get transactions that belong to the account
 			List<Transaction> t = tDao.findByAccount(a);
 
+			// return the list of transactions
 			return t;
 		}
 		catch (Exception e) {
-			System.out.println("Failed to get transactions from account with id = " + account_id);
 			return null;
 		}
 		
 	}
 
-	public List<Transaction> getUserTransactionHistory(int user_id) {
+	public List<Transaction> getTransactionsByUser(int user_id) {
 		try {
+			// get the user based on the given id
 			User u = uDao.findById(user_id).get();
+			
+			// get a list of transactions that belong to the given user
 			List<Transaction> t = tDao.findUserTransactionHistory(u);
+			
+			// return the list of transactions
 			return t;
 		}
 		catch (Exception e) {
-			System.out.println("Failed to get transaction history for user with id = " + user_id);
 			return null;
 		}
+	}
+	
+	public void transferFunds (int senderID, int recipientID, double amount) {
+		//Update the account balances
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!"+amount+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		Account sender = aDao.getById(senderID);
+		Account recipient = aDao.getById(recipientID);
+		
+		double senderTotal = sender.getBalance()-amount;
+		double recipientTotal = recipient.getBalance()+amount;
+		
+		sender.setBalance(senderTotal);
+		recipient.setBalance(recipientTotal);
+		
+		aDao.save(sender);
+		aDao.save(recipient);
+		
+		
+		//Create two transaction objects
+		Date date = new Date();
+		//double amountOut = amount*-1;
+		
+		Transaction moneySent = new Transaction(amount, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
+		Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
+		
+		tDao.save(moneySent);
+		tDao.save(moneyRecieved);
+		
+		
 	}
 }

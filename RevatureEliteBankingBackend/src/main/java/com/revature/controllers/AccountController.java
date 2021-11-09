@@ -40,7 +40,6 @@ public class AccountController {
 	public ResponseEntity<Optional<List<Account>>> getAccounts(@PathVariable("username") String username) {
 		Optional<List<Account>> accounts = AS.getAccountsByUsername(username);
 		
-		
 		if(accounts == null) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(accounts);
 		} 

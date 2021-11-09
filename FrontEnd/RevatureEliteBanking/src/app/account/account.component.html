@@ -1,17 +1,18 @@
-
+<nav class=nav-bar> <img id='revlogo' src='../../assets/revlogo1.png'></nav>
+<div class = 'contain'>
 <div class="card-container">
     
-    <h3>Account Summary</h3>
+    <h3 id = title>Account Summary</h3>
 
     <div>
         <button class="new-account">Create New Account</button>
         
-        <select >
+        <select [(ngModel)] = "type">
             <option value="" disabled selected>Select Account Type</option>
-            <option>CHECKINGS</option>
+            <option>CHECKING</option>
             <option>SAVINGS</option>
         </select>
-        <input type="number" placeholder="Initial Balance" required [(ngModel)] = "balance">
+        <input required pattern="[0-9]*[.][0-9][0-9]" type="number" placeholder="Initial Balance" min=0 required [(ngModel)] = "balance">
         
         <button class="submitBtn" (click)="submit()">submit</button>
     </div>
@@ -22,7 +23,7 @@
     -->
     <ul>
         <li *ngFor="let account of accounts"> 
-            <a class="card" target="_blank" rel="noopener" (click) = 'red(account.id)'>
+            <a class="card" target="_blank" rel="noopener" (click) = 'red(account.id, account.balance)'>
                 <span class="inside-content-left"> {{account.type}} <br> ####-00{{account.id}} </span>
                 <div >${{account.balance}} <br> Available Balance</div>   
                 <svg class="inside-content-right" class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
@@ -30,6 +31,18 @@
         </li>
     </ul> 
 
+    <div class="container-element">
+        <button (click)='transDisp()'>Transfer Funds</button>
+        <div *ngIf="showTransfer">
+            <p>From:</p><input  type="number" placeholder="Account Id From" min=0 required [(ngModel)] = "from">
+            <p>To:</p><input type="number" placeholder="Account Id To" min=0 required [(ngModel)] = "to">
+            <p>Amount:</p><input  type="number" placeholder="Amount" min=0 required [(ngModel)] = "amount">
+            
+            <button (click)="transfer()">transfer</button>
+            <button (click)='transDisp()'>cancel</button>
+        </div>
+    </div>
+</div>
 </div>
 
 
