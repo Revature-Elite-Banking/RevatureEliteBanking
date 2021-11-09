@@ -17,7 +17,12 @@ export class AccountComponent implements OnInit {
   //accounts = ACCOUNTS; //mock-data: can be used to test the view of components without the need of the server, see mock-accounts.ts
   public accounts!: any; //instantiate an account object (type any) to be populated by server response 
   public balance: number = 0;
-  public type: string = '';
+  public type!: string;
+  showTransfer = false;
+  public from!: number;
+  public to!: number;
+  public amount!: number;
+  //public something:any = { 'balance':this.balance, 'type':this.type } 
 
   //injecting our dependencies
   constructor(private http:HttpClient, private accountsService:AccountsService, private accountId:AccountIdService, private router:Router) { }
@@ -38,13 +43,32 @@ export class AccountComponent implements OnInit {
 
   //Function: takes in corresponding account.id when user clicks on the account element and "saves it", see account-id.service.ts
   //then navigates to the transaction component
-  red(accountID:number) {
-    this.accountId.Id = accountID //Id from account-id.service.ts is changed to whatever the accountID is
+  red(accountID:number, accountBALANCE:number) {
+    this.accountId.Id = accountID; //Id from account-id.service.ts is changed to whatever the accountID is
+    this.accountId.Balance = accountBALANCE;
     this.router.navigate(['/transaction'])
   }
 
   submit() {
-    console.log(this.balance + '' + this.type)
+    var new_account:any = { 'balance':this.balance, 'type':this.type } 
+    let url:string = 'http://localhost:8090/project3/account/new/'+localStorage.getItem('username')
+    this.http.post(url,new_account).subscribe(r=>{});
+    window.location.reload();
+    console.log('account created')
   }
 
+  transDisp() {
+    if(this.showTransfer){
+      this.showTransfer=false;
+    }else{
+      this.showTransfer=true;
+    }
+  }
+
+  transfer() {
+    var trans:any = { 'from':this.from, 'to':this.to, 'amount':this.amount }
+    let url:string = 'http://localhost:8090/project3/account/new/'+localStorage.getItem('username')
+    this.http.post(url,trans).subscribe(r=>{});
+    console.log(trans);
+  }
 }
