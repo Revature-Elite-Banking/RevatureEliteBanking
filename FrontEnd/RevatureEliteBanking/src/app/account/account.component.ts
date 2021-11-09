@@ -68,7 +68,7 @@ export class AccountComponent implements OnInit {
   transfer() {
     var trans:any = { 'senderID':this.from, 'recipientID':this.to, 'amount':this.amount }
     let url:string = 'http://localhost:8090/project3/transaction/transfer'
-    this.http.post(url,trans).subscribe(r=>{});
+    this.http.post(url,trans,{responseType: 'text'}).subscribe(r=>{});
     console.log(trans);
   }
 }
