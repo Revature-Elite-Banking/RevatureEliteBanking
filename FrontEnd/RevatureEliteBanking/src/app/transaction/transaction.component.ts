@@ -12,7 +12,7 @@ export class TransactionComponent implements OnInit {
   
   public transactionArray = this.tranService.transactionArray
 
-  constructor(private tranService:TransactionService, private accountId:AccountIdService) { }
+  constructor(private tranService:TransactionService, public accountId:AccountIdService) { }
 
   transArray: any[] = [];
   infoArray:any
@@ -20,11 +20,9 @@ export class TransactionComponent implements OnInit {
 
   ngOnInit(): void {
     // subscribe to the transaction observable
-    //*
     this.tranService.getTransactions().subscribe(
       (allTransactions:any)=>{
         this.transArray = allTransactions;
-        console.log(this.transArray);
       },
       ()=>{
         console.log("No information");
@@ -32,16 +30,18 @@ export class TransactionComponent implements OnInit {
     );
    
     
-    //*/
+
     console.log(this.accountId.Id)
   }
 
 getInfo():void{
-  
-   let infoArray=this.tranService.parseTransactions(this.transArray); //calls function to get needed data from JSON object
-  console.log(infoArray)
-  this.infoArray = infoArray
-  console.log(infoArray)
+  let transArray=this.tranService.findAccountTransactions(this.transArray, this.accountId.Id) //gets the correct transactions in relation to account number
+  if (transArray == []){
+    transArray = [["", "", "", "No Transactions Present", "", ""]]
+  }else{
+    let infoArray=this.tranService.parseTransactions(transArray); //calls function to get needed data from JSON object
+    this.infoArray = infoArray
+  }
 }
 
 }

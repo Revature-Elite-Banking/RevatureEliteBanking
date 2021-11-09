@@ -82,6 +82,13 @@ public class Transaction {
 		this.account = account;
 	}
 
+	public Transaction(double amount, TransactionType type, String description) {
+		super();
+		this.amount = amount;
+		this.type = type;
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

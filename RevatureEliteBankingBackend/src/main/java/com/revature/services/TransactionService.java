@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.daos.AccountDAO;
 import com.revature.daos.TransactionRepository;
 import com.revature.daos.UserDAO;
+import com.revature.enums.TransactionStatus;
 import com.revature.enums.TransactionType;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
@@ -57,6 +58,9 @@ public class TransactionService {
 			// set the account for the new transaction
 			tran.setAccount(a);
 			tran.setDate(new Date());
+			//As of now all transactions default to completed
+			//This probably won't change unless actual payment services are implemented
+			tran.setStatus(TransactionStatus.COMPLETED);
 			
 			Transaction t = tDao.save(tran);
 			
@@ -133,5 +137,30 @@ public class TransactionService {
 			System.out.println("Failed to get transaction history for user with id = " + user_id);
 			return null;
 		}
+	}
+	
+	public void transferFunds (Account sender, Account recipient, double amount) {
+		//Update the account balances
+		double senderTotal = sender.getBalance()-amount;
+		double recipientTotal = recipient.getBalance()+amount;
+		
+		sender.setBalance(senderTotal);
+		recipient.setBalance(recipientTotal);
+		
+		aDao.save(sender);
+		aDao.save(recipient);
+		
+		
+		//Create two transaction objects
+		Date date = new Date();
+		double amountOut = amount*-1;
+		
+		Transaction moneySent = new Transaction(amountOut, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
+		Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
+		
+		tDao.save(moneySent);
+		tDao.save(moneyRecieved);
+		
+		
 	}
 }

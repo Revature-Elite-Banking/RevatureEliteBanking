@@ -4,7 +4,8 @@ public enum TransactionType {
 
 	DEPOSIT(0),
 	WITHDRAWL(1),
-	TRANSFER(2);
+	TRANSFERIN(2),
+	TRANSFEROUT(3);
 	
 	private int type;
 	
