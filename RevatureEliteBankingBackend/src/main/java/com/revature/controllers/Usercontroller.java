@@ -3,6 +3,7 @@ package com.revature.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.daos.UserDAO;
 import com.revature.models.User;
 import com.revature.services.UserService;
 
@@ -36,8 +38,23 @@ public class Usercontroller {
 	
 	@PostMapping
 	public ResponseEntity addUser(@RequestBody User u) {
-		us.insertUser(u);
-		return ResponseEntity.status(201).build();
+		String username = u.getUsername();
+		String email = u.getEmail();
+		if(us.findUserByUsername(username)!= null) {
+			return ResponseEntity
+		            .status(HttpStatus.FORBIDDEN)
+		            .body("Username Already Exists");
+		}else if(us.findUserByEmail(email) != null) {
+			return ResponseEntity
+		            .status(406)
+		            .body("Email Already Exists");
+		}
+		else {
+			us.insertUser(u);
+			return ResponseEntity.status(201).build();
+			
+		}
+		
 		
 	}
 	

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RegistrationDto } from '../models/registration-dto';
 import { RegistrationService } from '../registration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -16,9 +18,13 @@ export class RegistrationComponent implements OnInit {
   public address:string = "";
   public city:string = "";
   public state:string = "";
-  public zip_code:string = "";
+  public zip_code:any = "";
+  public userExists:boolean=false;
+  public userError:string="";
+  public emailError:string="";
+ 
 
-  constructor(private rs:RegistrationService) { }
+  constructor(private rs:RegistrationService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -33,8 +39,30 @@ export class RegistrationComponent implements OnInit {
       return;
     }
     else{
-      console.log(this.username + this.password);
-      this.rs.register(this.username, this.password, this.email, this.f_name, this.l_name, this.address, this.city, this.state, this.zip_code);
+      
+      this.rs.register(this.username, this.password, this.email, this.f_name, this.l_name, this.address, this.city, this.state, this.zip_code)
+      .subscribe(
+        resp=>{ 
+          if(resp.status==201){
+            console.log("account successfully created");
+            this.router.navigate(['/login']);
+          }
+   
+        },
+        error=> {
+          if(error.status==403){
+            console.log("username already exists");
+            this.userExists=true;
+            this.userError=error.error;
+          }
+          if(error.status==406){
+            console.log("Email already exists");
+            this.userExists=true;
+            this.emailError=error.error;
+          }
+    
+        }
+      );
       
     }
   }

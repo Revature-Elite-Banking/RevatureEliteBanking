@@ -31,6 +31,9 @@ button#loginButton {
     border: none;
 }
 ::ng-deep body{
-
-    background-image: url("../../assets/revature.png");
+    background: url("../../assets/revature-final.jpg") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

@@ -10,10 +10,12 @@
                 <input id="username" type="text" placeholder="Username" required class="form-control form-input" 
                     required minlength="4" maxlength="16" 
                     [(ngModel)] = "username" name = "regUsername" #regUsername = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
-
+                <div *ngIf="userExists?userError:''" class="alert alert-danger">
+                    {{userError}}
+                </div> 
                 <div *ngIf="regUsername.invalid && (regUsername.dirty || regUsername.touched)"
                     class="alert">
-
+                     
                     <div *ngIf="regUsername.errors?.['required']">
                         Username is required.
                     </div>
@@ -52,7 +54,9 @@
                 <input id="email" type="text" placeholder="Email" required class="form-control form-input" 
                     required email
                     [(ngModel)] = "email" name = "regEmail" #regEmail = "ngModel" [ngModelOptions]="{updateOn: 'blur'}">
-
+                    <div *ngIf="userExists?emailError:''" class="alert alert-danger">
+                        {{emailError}}
+                    </div> 
                 <div *ngIf="regEmail.invalid && (regEmail.dirty || regEmail.touched)"
                     class="alert">
 

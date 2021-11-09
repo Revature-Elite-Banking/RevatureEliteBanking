@@ -29,17 +29,23 @@
     position: fixed;
     margin-left: 75%;
 }
-form#loginForm input {
-    margin-bottom: 10px;
+input {
+    margin-bottom: 20px;
 }
+
 ::ng-deep body{
-    background-image: url("../../assets/revature.png");
+    background: url("../../assets/revature-final.jpg") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 button#registerButton {
-    background: linear-gradient(45deg, #5cb85c, transparent);
+    background: linear-gradient(45deg, #28a745, #1d8936);
     padding: 10px 30px;
     border: none;
     font-size: 18px;
+    margin-bottom: 5em;
 }
 form#loginForm {
     padding-bottom: 20px;
@@ -47,4 +53,12 @@ form#loginForm {
 button#registerButton:hover {
     background: white;
     color: #d9534f;
+}
+.alert.alert-danger {
+    width: 300px;
+    border: none;
+    margin-left: 18em;
+    color: white;
+    background: red;
+    padding: 5px 5px;
 }

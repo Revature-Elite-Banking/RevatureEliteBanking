@@ -4,7 +4,7 @@
     <h3>Account Summary</h3>
 
     <div>
-        <button>Create New Account</button>
+        <button class="new-account">Create New Account</button>
         
         <select >
             <option value="" disabled selected>Select Account Type</option>
@@ -13,7 +13,7 @@
         </select>
         <input type="number" placeholder="Initial Balance" required [(ngModel)] = "balance">
         
-        <button (click)="submit()">submit</button>
+        <button class="submitBtn" (click)="submit()">submit</button>
     </div>
 
     <!--

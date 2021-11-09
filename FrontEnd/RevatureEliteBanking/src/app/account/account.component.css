@@ -1,13 +1,16 @@
 .card-container {
-    position: relative;
+    /* position: relative; */
     left:25%;
-
-    background-color: #B9B9BA;
+    /* background-color: #B9B9BA; */
     display: inline-flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 16px;
+    /* margin-top: 16px; */
+    margin: 18em 10em 0 20em;
+    padding: 30px 40px;
+    background: radial-gradient(#ffc107, transparent);
+    box-shadow: 10px 10px 8px #efb60d;
   }
 
   .card svg.material-icons path {
@@ -69,3 +72,50 @@
     list-style-type: none;
     padding-left: 0;
   }
+  ::ng-deep body{
+    background: url("../../assets/revature-final.jpg") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.card-container:hover {
+  transform: scale3d(1.05, 1.05, 1.1);
+}
+button {
+  /* background: linear-gradient(45deg, #007bff, transparent); */
+  width: 12em;
+  height: 2.5em;
+  /* color: white; */
+  margin-right: 5px;
+  border: none;
+}
+select, input {
+  width: 12em;
+  height: 2.5em;
+  margin-right: 5px;
+  text-indent: 10px;
+  border: none;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: white;
+    text-shadow: 2px 3px 3px black;
+}
+button.new-account {
+  background: radial-gradient(#337ab7, #337ab7);
+  color: white;
+}
+button.new-account:hover {
+  background: linear-gradient(205deg, #28a745, rgb(0 123 255 / 50%));
+}
+button.submitBtn {
+  background: green;
+  color: white;
+  text-transform: capitalize;
+}
+button.submitBtn:hover {
+  background: repeating-linear-gradient(142deg, #dc3545, transparent 100px);
+}

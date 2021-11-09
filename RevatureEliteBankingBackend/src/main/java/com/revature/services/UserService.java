@@ -13,6 +13,7 @@ public class UserService {
 	
 	private UserDAO uDAO;
 	
+	
 	@Autowired
 	public UserService(UserDAO uDAO) {
 		super();
@@ -45,5 +46,11 @@ public class UserService {
 		
 		return uDAO.findByUsername(username);
 	}
+	
+	public User findUserByEmail(String email) {
+		
+		return uDAO.findByEmail(email);
+		
+	};
 
 }
