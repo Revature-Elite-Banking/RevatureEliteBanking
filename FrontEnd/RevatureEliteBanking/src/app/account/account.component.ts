@@ -66,8 +66,8 @@ export class AccountComponent implements OnInit {
   }
 
   transfer() {
-    var trans:any = { 'from':this.from, 'to':this.to, 'amount':this.amount }
-    let url:string = 'http://localhost:8090/project3/account/new/'+localStorage.getItem('username')
+    var trans:any = { 'senderID':this.from, 'recipientID':this.to, 'amount':this.amount }
+    let url:string = 'http://localhost:8090/project3/transaction/transfer'
     this.http.post(url,trans).subscribe(r=>{});
     console.log(trans);
   }

@@ -34,9 +34,9 @@
     <div class="container-element">
         <button (click)='transDisp()'>Transfer Funds</button>
         <div *ngIf="showTransfer">
-            <p>From:</p><input required pattern="[0-9]*[.][0-9][0-9]" type="number" placeholder="Account Id From" min=0 required [(ngModel)] = "from">
-            <p>To:</p><input required pattern="[0-9]*[.][0-9][0-9]" type="number" placeholder="Account Id To" min=0 required [(ngModel)] = "to">
-            <p>Amount:</p><input required pattern="[0-9]*[.][0-9][0-9]" type="number" placeholder="Amount" min=0 required [(ngModel)] = "amount">
+            <p>From:</p><input  type="number" placeholder="Account Id From" min=0 required [(ngModel)] = "from">
+            <p>To:</p><input type="number" placeholder="Account Id To" min=0 required [(ngModel)] = "to">
+            <p>Amount:</p><input  type="number" placeholder="Amount" min=0 required [(ngModel)] = "amount">
             
             <button (click)="transfer()">transfer</button>
             <button (click)='transDisp()'>cancel</button>
