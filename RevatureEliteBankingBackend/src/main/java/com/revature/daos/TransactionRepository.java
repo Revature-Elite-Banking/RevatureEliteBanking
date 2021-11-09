@@ -15,10 +15,11 @@ import com.revature.models.User;
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{ 
 	
 	// Spring Data makes the query based off the method name - returns a List of Transactions by the given Account
+	@Query("FROM Transaction t WHERE t.account = ?1 ORDER BY t.id")
 	public List<Transaction> findByAccount(Account account);
 	
 	// the query in parenthesis returns a set of accounts with the given user
 	// the first part of the query returns all transactions based off the second query's set of accounts
-	@Query("FROM Transaction t WHERE t.account IN (FROM Account a WHERE a.user =?1)")
+	@Query("FROM Transaction t WHERE t.account IN (FROM Account a WHERE a.user =?1) ORDER BY t.id")
 	public List<Transaction> findUserTransactionHistory(User user);
 }
