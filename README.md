@@ -35,6 +35,7 @@ To-do list:
 * `npm install` inside of ../RevatureEliteBanking/FrontEnd/RevatureEliteBanking
 * After the install use `ng serve -o` to start the Angular application
 * Import RevatureEliteBankingBackend as a Gradle project
+* "Gradle Refresh" the java spring project by right clicking the main folder
 * Adjust `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` to connect to your database
 * Run RevatureEliteBankingBackend to start the connection to the server
 ## Usage

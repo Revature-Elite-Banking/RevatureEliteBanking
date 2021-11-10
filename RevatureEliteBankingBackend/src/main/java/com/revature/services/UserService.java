@@ -47,6 +47,9 @@ public class UserService {
 		return uDAO.findByUsername(username);
 	}
 	
+	/*
+	 * returning user details by Email
+	 */
 	public User findUserByEmail(String email) {
 		
 		return uDAO.findByEmail(email);
