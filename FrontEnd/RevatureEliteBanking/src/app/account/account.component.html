@@ -1,4 +1,4 @@
-<nav class=nav-bar> <img id='revlogo' src='../../assets/revlogo1.png'></nav>
+<nav class=nav-bar> <img id='revlogo' src='../../assets/revature-logo.png'></nav>
 <div class = 'contain'>
 <div class="card-container">
     
@@ -39,6 +39,7 @@
             <p>Amount:</p><input  type="number" placeholder="Amount" min=0 required [(ngModel)] = "amount">
             
             <button (click)="transfer()">transfer</button>
+            <p>{{res}}</p>
             <button (click)='transDisp()'>cancel</button>
         </div>
         <button (click)='logout()'>logout</button>
