@@ -123,3 +123,12 @@ button.submitBtn {
 button.submitBtn:hover {
   background: repeating-linear-gradient(142deg, #dc3545, transparent 100px);
 }
+
+.logout {
+  float: right;
+  margin-top: 3em;
+  margin-right: 2em;
+  background-color: #fcb414;
+  color: white;
+  font-weight: bold;
+}
