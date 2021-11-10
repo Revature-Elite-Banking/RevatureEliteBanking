@@ -25,9 +25,13 @@
 }
 
 .alert {
-    color: red;
     position: fixed;
-    margin-left: 75%;
+    width: 50%;
+    border: none;
+    margin-left: 19em;
+    color: white;
+    background: red;
+    padding: 5px 5px;
 }
 input {
     margin-bottom: 20px;
