@@ -7,6 +7,7 @@ import { AccountsService } from '../accounts.service';
 import { ACCOUNTS } from '../mock-accounts';
 import { AccountIdService } from '../services/account-id.service';
 import * as alertyfy from 'alertifyjs';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-account',
@@ -26,7 +27,7 @@ export class AccountComponent implements OnInit {
   //public something:any = { 'balance':this.balance, 'type':this.type } 
 
   //injecting our dependencies
-  constructor(private http:HttpClient, private accountsService:AccountsService, private accountId:AccountIdService, private router:Router) { }
+  constructor(private http:HttpClient, private accountsService:AccountsService, private accountId:AccountIdService, private router:Router, private loginService:LoginService) { }
 
   
   //using the getAccounts() function from our accountsService 
@@ -75,5 +76,9 @@ export class AccountComponent implements OnInit {
     let date: Date = new Date(); 
     alertyfy.set('notifier','position', 'top-right');
     var notification = alertyfy.notify(date +" Hello "+localStorage.getItem('username') +" $"+this.amount+" is transfered from account " + this.from +" to "+this.to, 'success', 30, function(){  console.log('dismissed'); });
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }
