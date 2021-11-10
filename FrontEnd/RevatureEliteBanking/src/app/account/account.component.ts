@@ -6,6 +6,7 @@ import { AccountsService } from '../accounts.service';
 //placeholder data
 import { ACCOUNTS } from '../mock-accounts';
 import { AccountIdService } from '../services/account-id.service';
+import * as alertyfy from 'alertifyjs';
 
 @Component({
   selector: 'app-account',
@@ -70,5 +71,9 @@ export class AccountComponent implements OnInit {
     let url:string = 'http://localhost:8090/project3/transaction/transfer'
     this.http.post(url,trans,{responseType: 'text'}).subscribe(r=>{});
     console.log(trans);
+
+    let date: Date = new Date(); 
+    alertyfy.set('notifier','position', 'top-right');
+    var notification = alertyfy.notify(date +" Hello "+localStorage.getItem('username') +" $"+this.amount+" is transfered from account " + this.from +" to "+this.to, 'success', 30, function(){  console.log('dismissed'); });
   }
 }

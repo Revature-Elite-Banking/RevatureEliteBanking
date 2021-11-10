@@ -118,15 +118,15 @@ public class TransactionController {
 	
 	//Transfer money between two accounts
 	@PostMapping("/transfer")
-<<<<<<< HEAD
-
+//<<<<<<< HEAD
+//
+//	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
+//		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
+//
+//=======
 	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
 		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
-
-=======
-	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
-		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
->>>>>>> ffdab309d7c5f88e7fd29f68c72b443305cb7ec5
+//>>>>>>> ffdab309d7c5f88e7fd29f68c72b443305cb7ec5
 		
 		return ResponseEntity.status(200).body("Successful transfer");
 	}
