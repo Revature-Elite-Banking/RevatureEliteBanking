@@ -16,8 +16,11 @@ import {formatDate} from '@angular/common';
 })
 export class AccountComponent implements OnInit {
 
+ /* ******************************************************** Variables ********************************************************* */
+
   //accounts = ACCOUNTS; //mock-data: can be used to test the view of components without the need of the server, see mock-accounts.ts
   public accounts!: any; //instantiate an account object (type any) to be populated by server response 
+  //instantiating variables that change
   public balance: number = 0;
   public type!: string;
   showTransfer = false;
@@ -25,11 +28,13 @@ export class AccountComponent implements OnInit {
   public to!: number;
   public amount!: number;
   public res = '';
-  //public something:any = { 'balance':this.balance, 'type':this.type } 
+
+ /* ********************************************************** Constructor ******************************************************** */ 
 
   //injecting our dependencies
   constructor(private http:HttpClient, private accountsService:AccountsService, private accountId:AccountIdService, private router:Router) { }
 
+  /* ********************************************************** Methods ******************************************************** */ 
   
   //using the getAccounts() function from our accountsService 
   //then subscribing and redirecting the results/response to accountView() function, see below
@@ -52,6 +57,7 @@ export class AccountComponent implements OnInit {
     this.router.navigate(['/transaction'])
   }
 
+  //method that creates new account using user inputs. sends post request to server with those inputs
   submit() {
     var new_account:any = { 'balance':this.balance, 'type':this.type } 
     let url:string = 'http://localhost:8090/project3/account/new/'+localStorage.getItem('username')
@@ -60,6 +66,7 @@ export class AccountComponent implements OnInit {
     console.log('account created')
   }
 
+  //just to toggle the display of the transfer form
   transDisp() {
     if(this.showTransfer){
       this.showTransfer=false;
@@ -67,11 +74,13 @@ export class AccountComponent implements OnInit {
       this.showTransfer=true;
     }
   }
-
+  //just to display the server response to an invalid transfer
   resp(text:any) {
     this.res = text;
   }
 
+  //copy pasted from submit(), takes user input and sends post request
+  // the .subscribe part goes unused but is required for post requests, not sure why
   transfer() {
     var trans:any = { 'senderID':this.from, 'recipientID':this.to, 'amount':this.amount }
     let url:string = 'http://localhost:8090/project3/transaction/transfer/'+localStorage.getItem('username')
