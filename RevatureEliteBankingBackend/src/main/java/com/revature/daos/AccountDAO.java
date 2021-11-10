@@ -13,6 +13,6 @@ import com.revature.models.User;
 @Repository
 public interface AccountDAO extends JpaRepository<Account, Integer> {
 	
-	@Query("FROM Account ORDER BY id")
+	@Query("FROM Account WHERE user=?1 ORDER BY id")
 	public Optional<List<Account>> findByUser(User user);
 }

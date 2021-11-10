@@ -117,11 +117,18 @@ public class TransactionController {
 	}
 	
 	//Transfer money between two accounts
-	@PostMapping("/transfer")
-
-	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto) {
-		tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount());
-
-		return ResponseEntity.status(200).body("Successful transfer");
+	@PostMapping("/transfer/{username}")
+	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto, @PathVariable String username) {
+		
+		if(tdto.getRecipientID()==tdto.getSenderID())
+			return ResponseEntity.status(200).body("Please select 2 different accounts");
+		
+		boolean b = tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount(), username);
+		
+		if (b)
+			return ResponseEntity.status(200).body("Successful transfer");
+		else
+			return ResponseEntity.status(200).body("Please select 2 of your accounts");
+		
 	}
 }
