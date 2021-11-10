@@ -148,31 +148,37 @@ public class TransactionService {
 		}
 	}
 	
-	public void transferFunds (int senderID, int recipientID, double amount) {
+	public boolean transferFunds (int senderID, int recipientID, double amount, String username) {
 		//Update the account balances
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!"+amount+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		Account sender = aDao.getById(senderID);
-		Account recipient = aDao.getById(recipientID);
+		if (aDao.getById(senderID).getUser().getUsername()!=username||aDao.getById(recipientID).getUser().getUsername()!=username) {
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!"+amount+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+			Account sender = aDao.getById(senderID);
+			Account recipient = aDao.getById(recipientID);
 		
-		double senderTotal = sender.getBalance()-amount;
-		double recipientTotal = recipient.getBalance()+amount;
+			double senderTotal = sender.getBalance()-amount;
+			double recipientTotal = recipient.getBalance()+amount;
 		
-		sender.setBalance(senderTotal);
-		recipient.setBalance(recipientTotal);
+			sender.setBalance(senderTotal);
+			recipient.setBalance(recipientTotal);
 		
-		aDao.save(sender);
-		aDao.save(recipient);
+			aDao.save(sender);
+			aDao.save(recipient);
 		
 		
-		//Create two transaction objects
-		Date date = new Date();
-		//double amountOut = amount*-1;
+			//Create two transaction objects
+			Date date = new Date();
+			//double amountOut = amount*-1;
 		
-		Transaction moneySent = new Transaction(amount, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
-		Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
+			Transaction moneySent = new Transaction(amount, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
+			Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
 		
-		tDao.save(moneySent);
-		tDao.save(moneyRecieved);
+			tDao.save(moneySent);
+			tDao.save(moneyRecieved);
+			
+			return true;
+		}
+		else
+			return false;
 		
 		
 	}

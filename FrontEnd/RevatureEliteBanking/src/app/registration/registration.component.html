@@ -1,3 +1,5 @@
+<nav class=nav-bar> <img id='revlogo' src='../../assets/revature-logo.png'></nav>
+
 <div class="container" id="fullcontainer">
 
     <div class="page-centered">
@@ -17,13 +19,13 @@
                     class="alert">
                      
                     <div *ngIf="regUsername.errors?.['required']">
-                        Username is required.
+                        Username is required
                     </div>
                     <div *ngIf="regUsername.errors?.['minlength']">
-                        Username must be at least 4 characters long.
+                        Username must be at least 4 characters
                     </div>
                     <div *ngIf="regUsername.errors?.['maxlength']">
-                        Username cannot be more than 16 characters long.
+                        Username cannot be more than 16 characters long
                     </div>
 
                 </div>
@@ -39,10 +41,10 @@
                     class="alert">
 
                     <div *ngIf="regPassword.errors?.['required']">
-                        Password is required.
+                        Password is required
                     </div>
                     <div *ngIf="regPassword.errors?.['minlength']">
-                        Password must be at least 8 characters long.
+                        Password must be at least 8 characters
                     </div>
 
                 </div>
@@ -61,10 +63,10 @@
                     class="alert">
 
                     <div *ngIf="regEmail.errors?.['required']">
-                        Email is required.
+                        Email is required
                     </div>
                     <div *ngIf="regEmail.errors?.['email']">
-                        Please enter a valid email address.
+                        Please enter a valid email address
                     </div>
 
                 </div>
@@ -81,10 +83,10 @@
                     class="alert">
 
                     <div *ngIf="regFname.errors?.['required']">
-                        First name is required.
+                        First name is required
                     </div>
                     <div *ngIf="regFname.errors?.['pattern']">
-                        First name must contain only letters.
+                        First name can only contain letters
                     </div>
 
                 </div>
@@ -101,10 +103,10 @@
                     class="alert">
 
                     <div *ngIf="regLname.errors?.['required']">
-                        Last name is required.
+                        Last name is required
                     </div>
                     <div *ngIf="regLname.errors?.['pattern']">
-                        Last name must contain only letters.
+                        Last name can only contain letters
                     </div>
 
                 </div>
@@ -121,10 +123,10 @@
                     class="alert">
 
                     <div *ngIf="regAddress.errors?.['required']">
-                        Street address is required.
+                        Street address is required
                     </div>
                     <div *ngIf="regAddress.errors?.['pattern']">
-                        Street address must contain only letters and numbers.
+                        Invalid street address
                     </div>
 
                 </div>
@@ -141,10 +143,10 @@
                     class="alert">
 
                     <div *ngIf="regCity.errors?.['required']">
-                        City name is required.
+                        City name is required
                     </div>
                     <div *ngIf="regCity.errors?.['pattern']">
-                        City name must contain only letters.
+                        City name can only contain letters
                     </div>
 
                 </div>
@@ -161,10 +163,10 @@
                     class="alert">
 
                     <div *ngIf="regState.errors?.['required']">
-                        State is required.
+                        State is required
                     </div>
                     <div *ngIf="regState.errors?.['pattern']">
-                        State must be capitalized 2 letter abbriviation. (ex. VA, IL, FL)
+                        Invalid (ex. VA, IL, FL)
                     </div>
 
                 </div>
@@ -181,16 +183,16 @@
                     class="alert">
 
                     <div *ngIf="regZipCode.errors?.['required']">
-                        Zip Code is required.
+                        Zip Code is required
                     </div>
                     <div *ngIf="regZipCode.errors?.['pattern']">
-                        Zip Code must contain only numbers.
+                        Zip Code must contain only numbers
                     </div>
                     <div *ngIf="regZipCode.errors?.['minlength']">
-                        Zip Code must be 5 digits.
+                        Zip Code must be 5 digits
                     </div>
                     <div *ngIf="regZipCode.errors?.['maxlength']">
-                        Zip Code must be 5 digits.
+                        Zip Code must be 5 digits
                     </div>
 
                 </div>

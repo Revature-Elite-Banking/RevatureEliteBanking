@@ -31,11 +31,19 @@ public class Usercontroller {
 		this.us = us;
 	}
 	
+	/*
+	 * Returning list of Users
+	 * as response
+	 */
 	@GetMapping
 	public ResponseEntity<List<User>> getAllUser(){
 		return ResponseEntity.status(200).body(us.findUserAll());
 	}
 	
+	/*
+	 * Inserting new user and sending an response in a body
+	 * also, validating the existing username and email before adding a user
+	 */
 	@PostMapping
 	public ResponseEntity addUser(@RequestBody User u) {
 		String username = u.getUsername();
@@ -58,6 +66,10 @@ public class Usercontroller {
 		
 	}
 	
+	/*
+	 * Getting an user Information by username 
+	 * and returning in a response
+	 */
 	@GetMapping(value="/{username}")
 	public ResponseEntity<User> getUserByUsername(@PathVariable String username){
 		
