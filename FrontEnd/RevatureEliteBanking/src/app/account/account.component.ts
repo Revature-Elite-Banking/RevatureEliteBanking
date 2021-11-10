@@ -6,6 +6,8 @@ import { AccountsService } from '../accounts.service';
 //placeholder data
 import { ACCOUNTS } from '../mock-accounts';
 import { AccountIdService } from '../services/account-id.service';
+import * as alertyfy from 'alertifyjs';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-account',
@@ -22,6 +24,7 @@ export class AccountComponent implements OnInit {
   public from!: number;
   public to!: number;
   public amount!: number;
+  public res = '';
   //public something:any = { 'balance':this.balance, 'type':this.type } 
 
   //injecting our dependencies
@@ -65,10 +68,18 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  resp(text:any) {
+    this.res = text;
+  }
+
   transfer() {
     var trans:any = { 'senderID':this.from, 'recipientID':this.to, 'amount':this.amount }
-    let url:string = 'http://localhost:8090/project3/transaction/transfer'
-    this.http.post(url,trans,{responseType: 'text'}).subscribe(r=>{});
+    let url:string = 'http://localhost:8090/project3/transaction/transfer/'+localStorage.getItem('username')
+    this.http.post(url,trans,{responseType: 'text'}).subscribe(r=>this.resp(r));
     console.log(trans);
+     
+
+    alertyfy.set('notifier','position', 'top-right');
+    var notification = alertyfy.notify(formatDate(Date.now(),'EEE, dd MMM YYYY hh:mm:ss','en-US') +" Hello "+localStorage.getItem('username') +" $"+this.amount+" is transfered from account " + this.from +" to "+this.to, 'success', 30, function(){  console.log('dismissed'); });
   }
 }
