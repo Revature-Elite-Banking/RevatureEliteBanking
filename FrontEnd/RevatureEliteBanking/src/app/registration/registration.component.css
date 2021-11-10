@@ -34,7 +34,7 @@ input {
 }
 
 ::ng-deep body{
-    background: url("../../assets/revature-final.jpg") no-repeat fixed;
+    background: url("../../assets/revature-background.jpg") no-repeat fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -61,4 +61,11 @@ button#registerButton:hover {
     color: white;
     background: red;
     padding: 5px 5px;
+}
+/* Resizing logo size */
+img#revlogo {
+    width: 260px;
+    height: 115px;
+    position: fixed;
+    margin: 1em 1em;
 }
