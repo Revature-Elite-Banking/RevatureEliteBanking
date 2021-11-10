@@ -23,6 +23,7 @@ export class AccountComponent implements OnInit {
   public from!: number;
   public to!: number;
   public amount!: number;
+  public res = '';
   //public something:any = { 'balance':this.balance, 'type':this.type } 
 
   //injecting our dependencies
@@ -66,11 +67,16 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  resp(text:any) {
+    this.res = text;
+  }
+
   transfer() {
     var trans:any = { 'senderID':this.from, 'recipientID':this.to, 'amount':this.amount }
-    let url:string = 'http://localhost:8090/project3/transaction/transfer'
-    this.http.post(url,trans,{responseType: 'text'}).subscribe(r=>{});
+    let url:string = 'http://localhost:8090/project3/transaction/transfer/'+localStorage.getItem('username')
+    this.http.post(url,trans,{responseType: 'text'}).subscribe(r=>this.resp(r));
     console.log(trans);
+     
 
     let date: Date = new Date(); 
     alertyfy.set('notifier','position', 'top-right');
