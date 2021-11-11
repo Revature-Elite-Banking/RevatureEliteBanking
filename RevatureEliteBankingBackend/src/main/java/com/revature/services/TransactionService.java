@@ -149,15 +149,15 @@ public class TransactionService {
 	}
 	
 	public boolean transferFunds (int senderID, int recipientID, double amount, String username) {
-		//Update the account balances
+		//First check to make sure both accounts are owned by the person making the transfer
 		if (aDao.getById(senderID).getUser().getUsername()!=username||aDao.getById(recipientID).getUser().getUsername()!=username) {
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!"+amount+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+			
 			Account sender = aDao.getById(senderID);
 			Account recipient = aDao.getById(recipientID);
 		
 			double senderTotal = sender.getBalance()-amount;
 			double recipientTotal = recipient.getBalance()+amount;
-		
+			//Set the balances of the two accounts to account for the transfer
 			sender.setBalance(senderTotal);
 			recipient.setBalance(recipientTotal);
 		
@@ -166,8 +166,8 @@ public class TransactionService {
 		
 		
 			//Create two transaction objects
+			//Both will have a positive amount, with one being an incoming transfer and the other being an outgoing transfer
 			Date date = new Date();
-			//double amountOut = amount*-1;
 		
 			Transaction moneySent = new Transaction(amount, TransactionType.TRANSFEROUT, date, "Transfer to account #"+recipient.getId(), sender);
 			Transaction moneyRecieved = new Transaction(amount, TransactionType.TRANSFERIN, date, "Transfer from account #"+sender.getId(), recipient);
@@ -177,6 +177,7 @@ public class TransactionService {
 			
 			return true;
 		}
+		//The bool returned tells the controller layer if the transfer is authorized
 		else
 			return false;
 		

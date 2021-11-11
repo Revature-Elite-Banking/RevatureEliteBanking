@@ -30,17 +30,22 @@ public class Account {
 	private int id;
 	
 	private Date creationTime;
+	//There are no deposit or withdrawal methods yet
+	//Since this app doesn't connect to any payment services, account creation is done by entering a starting balance in a text field
+	//If you want you can make a new checking account with 9999999999999999 imaginary dollars
 	private double balance;
 	
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	//As of now the only account types are checking and savings
 	private AccountType type;
 	
 	@OneToMany(mappedBy="account", cascade = CascadeType.ALL)
 	@JsonIgnore
 	//At the very bottom of the boilerplate code there's a method to add to this list
+	//All new accounts start with a deposit equal to their starting balance
     private List<Transaction> transactions;
 
 	public Account() {

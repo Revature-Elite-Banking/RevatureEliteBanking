@@ -117,18 +117,22 @@ public class TransactionController {
 	}
 	
 	//Transfer money between two accounts
+	//The TransferDTO class explains what the front end should send to this handler
 	@PostMapping("/transfer/{username}")
-	public ResponseEntity<String> transferBetweenAccouunts(@RequestBody TransferDTO tdto, @PathVariable String username) {
+	public ResponseEntity<Boolean> transferBetweenAccouunts(@RequestBody TransferDTO tdto, @PathVariable String username) {
 		
+		//First check to make sure the two accounts are unique
 		if(tdto.getRecipientID()==tdto.getSenderID())
-			return ResponseEntity.status(200).body("Please select 2 different accounts");
+			return ResponseEntity.status(200).body(false);
 		
+		//Call the service layer to make the transfer
 		boolean b = tService.transferFunds(tdto.getSenderID(), tdto.getRecipientID(), tdto.getAmount(), username);
 		
+		//b returns false if you attempt to transfer from an account that isn't yours
 		if (b)
-			return ResponseEntity.status(200).body("Successful transfer");
+			return ResponseEntity.status(200).body(true);
 		else
-			return ResponseEntity.status(200).body("Please select 2 of your accounts");
+			return ResponseEntity.status(200).body(false);
 		
 	}
 }
