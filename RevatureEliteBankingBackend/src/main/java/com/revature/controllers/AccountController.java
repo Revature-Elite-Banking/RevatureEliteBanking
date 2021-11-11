@@ -51,8 +51,7 @@ public class AccountController {
 	//The front end needs to send the account type and the starting balance in the request body
 	@PostMapping("/new/{username}")
 	public void newAccount(@PathVariable("username") String username, @RequestBody Account input) {
-		if (username.equals(null)||input.equals(null));
-		else
+			System.out.println("************************************************************************************************************************************");
 			AS.newAccount(username, input);
 	}
 }
