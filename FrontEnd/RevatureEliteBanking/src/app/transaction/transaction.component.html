@@ -1,7 +1,18 @@
+
+
 <div>
-  <h3  class='text-center'id='accountNum'>ACCOUNT NUMBER: {{this.accountId.Id}}
-    <small class='text-muted'>Account Balance: ${{this.accountId.Balance}} </small> <!--change 500 to string interpolation of bank account total-->
-  </h3>
+  <img src="../../assets/revature-logo.png" alt=""> 
+
+
+
+  <h3  class='text-center'id='accountNum'>ACCOUNT NUMBER: {{this.accountId.Id}}</h3>
+  
+  <h3 class='text-muted'id='accountNum'>Account Balance: ${{this.accountId.Balance}}</h3>
+
+
+  
+  
+
 </div>
 
 <div class="container">
@@ -9,7 +20,7 @@
   <button id='trBtn'type="button" class="btn btn-dark btn-large" (click)="getInfo()">Display Transactions</button>
 
 
-<table class="table table-striped table-dark">
+<table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">ID</th>

@@ -14,10 +14,34 @@ h3{
 table{
     position: relative;
     top: 50%;
+    border: 1px solid #eee;
+    background-color: #FCB414;
 }
 
 .container #trBtn{
     position: relative;
     left: 70%;
+ 
     
+}
+image{
+    position: absolute;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+#space{
+    margin-top: 3em;
+    
+    
+  
+   
+}
+
+#accountNum{
+    margin: 16px;
+    padding: 10px;
+    border-radius: 10px;
+
 }
