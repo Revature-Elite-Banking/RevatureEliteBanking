@@ -41,7 +41,7 @@ export class TransactionService {
       tempArray.push(newInfo[i].date)
       tempArray.push(newInfo[i].description)
       if (newInfo[i].status == null) {
-        tempArray.push("PENDING")
+        tempArray.push("COMPLETED")
       } else {
         tempArray.push(newInfo[i].status)
       }
