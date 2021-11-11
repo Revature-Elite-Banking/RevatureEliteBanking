@@ -74,6 +74,9 @@ export class LoginService {
 
   logout() {
     localStorage.clear();
+    setTimeout(()=>{
+      window.location.reload();
+    }, 100);
     this.router.navigate(['login']);
   }
 }

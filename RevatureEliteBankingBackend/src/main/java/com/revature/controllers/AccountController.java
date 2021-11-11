@@ -48,8 +48,7 @@ public class AccountController {
 	
 	//Call this to create a new account from the front end
 	//Note that account means checking/savings, not an account you log in with
-	//The front end needs to send the account type and the starting balance 
-	//The front end is gonna determine whether the starting balance is 0 or if an initial deposit is made on creation
+	//The front end needs to send the account type and the starting balance in the request body
 	@PostMapping("/new/{username}")
 	public void newAccount(@PathVariable("username") String username, @RequestBody Account input) {
 		if (username.equals(null)||input.equals(null));

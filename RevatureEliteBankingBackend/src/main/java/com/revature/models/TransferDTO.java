@@ -5,6 +5,10 @@ public class TransferDTO {
 	int recipientID;
 	double amount;
 	
+	//This object helps clean up the front end transfer requests
+	//All the front end needs to send to make a transfer is in this object
+	//Just make sure you have the sender and recipient in the right order
+	//The TransactionService will handle the rest
 	public TransferDTO(int senderID, int recipientID, double amount) {
 		super();
 		this.senderID = senderID;
