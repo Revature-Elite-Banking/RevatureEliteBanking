@@ -20,16 +20,19 @@ export class LoginComponent implements OnInit {
     
   }
   
+  //login() will check that both fields have been filled before calling the login service
   login():void{
     if((this.username == "") || (this.password == "")){
       alert("Please fill all fields.");
       return;
     }
     else{
+      //call to login() in the login service
       this.ls.login(this.username,this.password);
     }  
   }
   
+  //register() will simply route the user to the registration component
   register(){
     this.router.navigate(['/registration']);
   }

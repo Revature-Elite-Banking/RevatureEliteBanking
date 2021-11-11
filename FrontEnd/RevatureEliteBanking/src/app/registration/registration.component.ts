@@ -29,6 +29,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //register() will double check that all fields are filled before calling the registration service
+  //it also checks the database to ensure that username and email are not currently in use by another user
+  //primary input validation is handled in the html file using template driven validation
   register():void{
     if ((this.username == "") || (this.password == "") ||
         (this.email == "") || (this.f_name == "") ||
