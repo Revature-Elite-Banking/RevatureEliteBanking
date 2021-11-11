@@ -21,6 +21,9 @@ export class TransactionService {
     let tempArray = []
     console.log(accountNumber)
     console.log(allTransactions)
+    if (accountNumber === 5050){
+      return 0
+    }else{
     for (let i = 0; i < allTransactions.length; i++) {  //parses through each transaction looking for matching account ID
       let newTransaction = allTransactions[i]
       let accountCheck = newTransaction.account
@@ -30,9 +33,12 @@ export class TransactionService {
     }
     return tempArray
   }
+  }
+
 
   parseTransactions(newInfo: any): any {   //seperates the correct transactions into individual arrays with the info needed
     let usableInfo: any[] = []
+    if (newInfo != []){
     for (let i = 0; i < newInfo.length; i++) {
       let tempArray = []
       //this injects the parsed data into a new temporary array that will be added to the "main read array"
@@ -51,6 +57,12 @@ export class TransactionService {
     }
     console.log(usableInfo)
     return usableInfo
+   }
+  }
+
+
+  findAccountTransactions2(num:number){
+    return 1
   }
 
 
